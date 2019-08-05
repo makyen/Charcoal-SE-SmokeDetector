@@ -29,6 +29,7 @@ git_user_repo = "Charcoal-SE/SmokeDetector"
 if git_url[0:19] == "https://github.com/":
     git_user_repo = "{}/{}".format(git_url_split[3], git_url_split[4][0:-4])
 
+
 def git_commit_info():
     try:
         data = sp.check_output(['git', 'rev-list', '-1', '--pretty=%H%n%an%n%s', 'HEAD'],
