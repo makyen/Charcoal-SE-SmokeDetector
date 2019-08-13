@@ -28,7 +28,7 @@ def _call_process(execcmd, _ok_code=None, return_data=False):
 class Git:
     # git
     def __init__(self, *args):
-        if args.length > 0:
+        if len(args) > 0:
             _call_process(args)
 
     # git
