@@ -24,6 +24,12 @@ def _call_process(execcmd, _ok_code=None, return_data=False):
 
 
 class Git:
+    # git
+    @staticmethod
+    def __call__(*args):
+        execcmd = "git " + " ".join(args)
+        _call_process(execcmd)
+
     # add
     @staticmethod
     def add(*args):
