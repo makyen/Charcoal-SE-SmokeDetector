@@ -10,7 +10,9 @@ GitError = sp.CalledProcessError
 
 
 def _call_process(execcmd, _ok_code=None, return_data=False):
-    proc = sp.Popen(shlex.split(execcmd), stdout=sp.PIPE, stderr=sp.PIPE, shell=True)
+    execcmd.insert(0, 'git')
+    print('execcmd:', execcmd);
+    proc = sp.Popen(execcmd, stdout=sp.PIPE, stderr=sp.PIPE, shell=True)
     (stdout, stderr) = proc.communicate()
     retcode = proc.returncode
     if retcode != 0:
@@ -25,104 +27,114 @@ def _call_process(execcmd, _ok_code=None, return_data=False):
 
 class Git:
     # git
+    def __init__(self, *args):
+        if args.length > 0:
+            _call_process(args)
+
+    # git
     @staticmethod
     def __call__(*args):
-        execcmd = "git " + " ".join(args)
-        _call_process(execcmd)
+        _call_process(args)
 
     # add
     @staticmethod
     def add(*args):
-        execcmd = "git add " + " ".join(args)
+        args.insert(0, 'add')
         _call_process(execcmd)
 
     # branch
     @staticmethod
     def branch(*args):
-        execcmd = "git branch " + " ".join(args)
+        args.insert(0, 'branch')
         _call_process(execcmd)
 
     # Checkout
     @staticmethod
     def checkout(*args):
-        execcmd = "git checkout " + " ".join(args)
+        args.insert(0, 'checkout')
         _call_process(execcmd)
 
     # commit
     @staticmethod
     def commit(*args):
-        execcmd = "git commit " + " ".join(args)
+        args.insert(0, 'commit')
         _call_process(execcmd)
 
     # Config
     @staticmethod
     def config(*args, _ok_code=None):
-        execcmd = "git config " + " ".join(args)
+        args.insert(0, 'config')
         _call_process(execcmd, _ok_code=_ok_code)
 
     # merge
     @staticmethod
     def merge(*args):
-        execcmd = "git merge " + " ".join(args)
+        args.insert(0, 'merge')
         _call_process(execcmd)
 
     # fetch
     @staticmethod
     def fetch(*args):
-        execcmd = "git fetch " + " ".join(args)
+        args.insert(0, 'fetch')
         _call_process(execcmd)
 
     # pull
     @staticmethod
     def pull(*args):
-        execcmd = "git pull " + " ".join(args)
+        args.insert(0, 'pull')
         _call_process(execcmd)
 
     # push
     @staticmethod
     def push(*args):
-        execcmd = "git push " + " ".join(args)
+        args.insert(0, 'push')
         _call_process(execcmd)
 
     # remote.update
     class remote:  # noqa: N801
         @staticmethod
         def update(*args):
-            execcmd = "git remote update " + " ".join(args)
+            args.insert(0, 'update')
+            args.insert(0, 'remote')
             _call_process(execcmd)
 
     # reset
     @staticmethod
     def reset(*args):
-        execcmd = "git reset " + " ".join(args)
+        args.insert(0, 'reset')
         _call_process(execcmd)
 
     # rev-parse
     @staticmethod
     def rev_parse(*args):
-        execcmd = "git rev-parse " + " ".join(args)
+        args.insert(0, 'rev-parse')
         return _call_process(execcmd, return_data=True)[0].decode('UTF-8')
 
     # status
     @staticmethod
     def status(*args):
-        execcmd = "git status " + " ".join(args)
+        args.insert(0, 'status')
         return _call_process(execcmd, return_data=True)[0].decode('UTF-8')
 
     # status with colours stripped
     @staticmethod
     def status_stripped(*args):
-        execcmd = "git -c color.status=false status " + " ".join(args)
+        args.insert(0, 'status')
+        args.insert(0, 'color.status=false')
+        args.insert(0, '-c')
         return _call_process(execcmd, return_data=True)[0].decode('UTF-8')
 
     # diff
     @staticmethod
     def diff(*args):
-        execcmd = "git diff " + " ".join(args)
+        args.insert(0, 'diff')
         return _call_process(execcmd, return_data=True)[0].decode('UTF-8')
 
     # diff with colours stripped, filenames only
     @staticmethod
     def diff_filenames(*args):
-        execcmd = "git -c color.diff=false diff --name-only " + " ".join(args)
+        args.insert(0, '--name-only')
+        args.insert(0, 'diff')
+        args.insert(0, 'color.diff=false')
+        args.insert(0, '-c')
         return _call_process(execcmd, return_data=True)[0].decode('UTF-8')
