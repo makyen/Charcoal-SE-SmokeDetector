@@ -68,6 +68,8 @@ class Metasmoke:
                                                          " Last {} connection to metasmoke".format(current_counter) +
                                                          " failed. Setting metasmoke status to **down**.")
                 Metasmoke.set_ms_down()
+            chatcommunicate.tell_rooms_with("debug", "Ping failure signal received." +
+                                                     " Current counter: {}".format(current_counter))
 
         @staticmethod
         def ping_succeeded():
@@ -90,6 +92,8 @@ class Metasmoke:
                                                          " Last {} connection to metasmoke".format(current_counter) +
                                                          " succeeded. Setting metasmoke status to **up**.")
                 Metasmoke.set_ms_up()
+            chatcommunicate.tell_rooms_with("debug", "Ping success signal received." +
+                                                     " Current counter: {}".format(-current_counter))  # Double negation
 
         @staticmethod
         def enable_autoswitch(to_enable):
@@ -106,6 +110,9 @@ class Metasmoke:
             with Metasmoke.AutoSwitch.rw_lock:
                 Metasmoke.AutoSwitch.counter = 0
                 Metasmoke.AutoSwitch.autoswitch_is_on = True
+                current_counter = Metasmoke.AutoSwitch.counter
+            chatcommunicate.tell_rooms_with("debug", "Reset switch signal received. " +
+                                                     " Current counter: {}".format(current_counter))
 
     @staticmethod
     def set_ms_up():
@@ -376,6 +383,7 @@ class Metasmoke:
             }
 
             headers = {'content-type': 'application/json'}
+            chatcommunicate.tell_rooms_with("debug", "Ping.")
             response = Metasmoke.post("/status-update.json",
                                       data=json.dumps(payload), headers=headers, ignore_down=True)
 
@@ -582,6 +590,7 @@ class Metasmoke:
                 if ignore_down:
                     # Means that this is a status ping
                     Metasmoke.AutoSwitch.ping_failed()
+                    chatcommunicate.tell_rooms_with("debug", "Ping failure.")
                 # No need to log here because it's re-raised
                 raise  # Maintain minimal difference to the original get/post methods
             else:
@@ -589,6 +598,7 @@ class Metasmoke:
                 if ignore_down:
                     # Means that this is a status ping
                     Metasmoke.AutoSwitch.ping_succeeded()
+                    chatcommunicate.tell_rooms_with("debug", "Ping success.")
 
             return response
         return func
