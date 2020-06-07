@@ -208,6 +208,7 @@ def pickle_last_messages():
 
 
 def send_messages():
+    log("info", "A send_messages() thread started.")
     while True:
         room, msg, report_data = _msg_queue.get()
         if len(msg) > 500 and "\n" not in msg:
