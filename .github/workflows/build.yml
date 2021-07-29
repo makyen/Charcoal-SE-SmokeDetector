@@ -37,8 +37,9 @@ jobs:
     - name: Install dependencies
       run: |
         pip3 --version
-        pip3 install -U wheel pip
+        pip3 install "pip==21.1.3"
         pip3 --version
+        pip3 install -U wheel
         pip3 install -U -r requirements.txt -r user_requirements.txt pytest-cov coveralls
     - name: Lint tests
       run: flake8 --config=tox_tests.ini test/
