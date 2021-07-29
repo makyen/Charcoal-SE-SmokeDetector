@@ -32,8 +32,6 @@ jobs:
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-1-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-1-
     - name: Install dependencies
       run: |
         pip3 install -U wheel
