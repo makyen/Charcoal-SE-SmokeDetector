@@ -58,6 +58,6 @@ jobs:
           --cov=datahandling \
           --cov=chatcommands \
           --cov=helpers \
-          -n 3 \
+          -n 17 \
           --dist loadgroup \
           test
