@@ -36,7 +36,6 @@ if tuple(int(x) for x in regex.__version__.split('.')) < (2, 5, 82):
         'Need regex >= 2020.6.8 (internal version number 2.5.82; got %s)' %
         regex.__version__)
 
-regex.cache_all(False)
 LINK_CACHE = dict()
 LINK_CACHE_lock = threading.RLock()
 LEVEN_DOMAIN_DISTANCE = 3
