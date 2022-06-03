@@ -29,7 +29,7 @@ from ast import literal_eval
 # noinspection PyCompatibility
 import regex
 from helpers import exit_mode, only_blacklists_changed, only_modules_changed, log, expand_shorthand_link, \
-    reload_modules, chunk_list, remove_regex_comments
+    reload_modules, chunk_list, remove_regex_comments, with_local_git_repository_file_lock
 from classes import Post
 from classes.feedback import *
 from classes.dns import dns_resolve
@@ -353,6 +353,7 @@ def get_number_bisect(msg, pattern):
     return bisect_number('', original_msg=fake_message)
 
 
+@with_local_git_repository_file_lock()
 def do_blacklist(blacklist_type, msg, force=False):
     """
     Adds a string to the website blacklist and commits/pushes to GitHub
@@ -598,6 +599,7 @@ def watch(msg, pattern, alias_used="watch"):
 
 
 @command(str, whole_msg=True, privileged=True, give_name=True, aliases=["unwatch"])
+@with_local_git_repository_file_lock()
 def unblacklist(msg, item, alias_used="unwatch"):
     """
     Removes a pattern from watchlist/blacklist and commits/pushes to GitHub
@@ -647,6 +649,7 @@ def unblacklist(msg, item, alias_used="unwatch"):
 
 
 @command(int, privileged=True, whole_msg=True, aliases=["accept"])
+@with_local_git_repository_file_lock()
 def approve(msg, pr_id):
     code_permissions = is_code_privileged(msg._client.host, msg.owner.id)
     if not code_permissions:
@@ -683,6 +686,7 @@ def approve(msg, pr_id):
 
 
 @command(str, privileged=True, whole_msg=True, give_name=True, aliases=["close", "reject-force", "close-force"])
+@with_local_git_repository_file_lock()
 def reject(msg, args, alias_used="reject"):
     argsraw = args.split(' "', 1)
     try:
@@ -726,6 +730,7 @@ def reject(msg, args, alias_used="reject"):
 
 
 @command(privileged=True, aliases=["remote-diff"])
+@with_local_git_repository_file_lock()
 def remotediff():
     will_require_full_restart = "SmokeDetector will require a full restart to pull changes: " \
                                 "{}".format(str(not only_blacklists_changed(GitManager.get_remote_diff())))
@@ -1158,6 +1163,7 @@ def master():
 
 # noinspection PyIncorrectDocstring,PyProtectedMember
 @command(privileged=True, aliases=["pull-force"])
+@with_local_git_repository_file_lock()
 def pull(alias_used='pull'):
     """
     Pull an update from GitHub
@@ -1626,6 +1632,7 @@ def bisect_number_list(s, full_number_list, filename):
     return matches
 
 
+@with_local_git_repository_file_lock()
 def get_watch_and_blacklist_number_bisects(s):
     number_matching = []
     with GlobalVars.blacklisted_numbers_lock:
