@@ -644,10 +644,21 @@ class FindSpam:
 
     @staticmethod
     def test_post(post):
+        is_pytest = True if "pytest" in sys.modules else False
         result = []
         why_title, why_username, why_body = [], [], []
         post_brief_id = "{}/{}/{}".format(post.post_site, "a" if post.is_answer else "q", post.post_id)
+        rule_index = 0
+        partial_body = ""
+        thread_id = ""
+        if is_pytest and post.body:
+            partial_body = post.body[:15]
+            thread_id = threading.current_thread().ident
         for rule in FindSpam.rules:
+            if is_pytest:
+                rule_index += 1
+                log('debug', '{}: FindSpam: test_post: {}: {}: {}: Begin {}:'.format(thread_id, rule_index, post.title,
+                                                                                     partial_body, rule.rule_id))
             start_time = time.time()
             title, username, body = rule.match(post)
             end_time = time.time()
