@@ -110,7 +110,8 @@ def has_pickle(path):
 # load_blacklists() is defined in a separate module blacklists.py, though
 def load_files():
     if has_pickle("falsePositives.p"):
-        GlobalVars.false_positives = load_pickle("falsePositives.p", encoding='utf-8')
+        with GlobalVars.false_positives_lock:
+            GlobalVars.false_positives = load_pickle("falsePositives.p", encoding='utf-8')
     if has_pickle("whitelistedUsers.p"):
         GlobalVars.whitelisted_users = load_pickle("whitelistedUsers.p", encoding='utf-8')
         if not isinstance(GlobalVars.whitelisted_users, set):
