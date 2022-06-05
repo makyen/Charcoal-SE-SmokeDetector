@@ -21,7 +21,7 @@ import regex
 import tld
 # noinspection PyPackageRequirements
 from tld.utils import TldDomainNotFound
-# import phonenumbers
+import phonenumbers
 import dns.resolver
 import requests
 import chatcommunicate
@@ -1011,7 +1011,6 @@ def _mostly_non_latin(s, site):   # majority of post is in non-Latin, non-Cyrill
     return False, ""
 
 
-r"""
 # noinspection PyUnusedLocal,PyMissingTypeHints
 @create_rule("phone number detected in {}", body=False,
              sites=["patents.stackexchange.com", "math.stackexchange.com", "mathoverflow.net"],
@@ -1040,7 +1039,6 @@ def has_phone_number(s, site):
             except phonenumbers.phonenumberutil.NumberParseException:
                 pass
     return False, ""
-"""
 
 
 # noinspection PyMissingTypeHints
