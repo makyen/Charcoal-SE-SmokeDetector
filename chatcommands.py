@@ -1359,7 +1359,8 @@ def listening():
 
 @command()
 def last_feedbacked():
-    return datahandling.last_feedbacked
+    with datahandling.last_feedbacked_lock:
+        return datahandling.last_feedbacked
 
 
 # noinspection PyIncorrectDocstring,PyProtectedMember
@@ -2618,7 +2619,8 @@ def true(feedback, msg, comment, alias_used="true"):
     if comment:
         Tasks.do(Metasmoke.post_auto_comment, comment, feedback.owner, url=post_url)
 
-    datahandling.last_feedbacked = ((post_id, site), time.time() + 60)
+    with datahandling.last_feedbacked_lock:
+        datahandling.last_feedbacked = ((post_id, site), time.time() + 60)
 
     return result if not feedback_type.always_silent else ""
 
