@@ -639,10 +639,14 @@ class FindSpam:
         why_title, why_username, why_body = [], [], []
         post_brief_id = "{}/{}/{}".format(post.post_site, "a" if post.is_answer else "q", post.post_id)
         rule_index = 0
+        partial_body = ""
+        if is_pytest and post.body:
+            partial_body = post.body[:15]
         for rule in FindSpam.rules:
             if is_pytest:
                 rule_index += 1
-                log('debug', 'FindSpam: test_post: {}: {}: Begin {}:'.format(rule_index, post.title, rule.rule_id))
+                log('debug', 'FindSpam: test_post: {}: {}: {}: Begin {}:'.format(rule_index, post.title,
+                                                                                 partial_body, rule.rule_id))
             start_time = time.time()
             title, username, body = rule.match(post)
             end_time = time.time()
