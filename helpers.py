@@ -443,3 +443,38 @@ def with_local_git_repository_file_lock():
                 return func(*args, **kwargs)
         return wrap
     return decorator
+
+
+def with_blacklisted_users_lock():
+    def decorator(func):
+        def wrap(*args, **kwargs):
+            with GlobalVars.blacklisted_users_lock:
+                return func(*args, **kwargs)
+        return wrap
+    return decorator
+
+
+def with_whitelisted_users_lock():
+    def decorator(func):
+        def wrap(*args, **kwargs):
+            with GlobalVars.whitelisted_users_lock:
+                return func(*args, **kwargs)
+        return wrap
+    return decorator
+
+
+def with_notifications_lock():
+    def decorator(func):
+        def wrap(*args, **kwargs):
+            with GlobalVars.notifications_lock:
+                return func(*args, **kwargs)
+        return wrap
+    return decorator
+
+
+def rewrap_for_monkeypatch_argument():
+    def decorator(func):
+        def wrap(monkeypatch):
+            return func(monkeypatch)
+        return wrap
+    return decorator

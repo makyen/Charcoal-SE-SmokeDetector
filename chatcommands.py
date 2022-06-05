@@ -29,7 +29,8 @@ from ast import literal_eval
 # noinspection PyCompatibility
 import regex
 from helpers import exit_mode, only_blacklists_changed, only_modules_changed, log, expand_shorthand_link, \
-    reload_modules, chunk_list, remove_regex_comments, with_local_git_repository_file_lock
+    reload_modules, chunk_list, remove_regex_comments, with_local_git_repository_file_lock, \
+    with_notifications_lock
 from classes import Post
 from classes.feedback import *
 from classes.dns import dns_resolve
@@ -1807,6 +1808,7 @@ def notify(msg, room_id, se_site, always_ping):
 
 # temp command
 @command(privileged=True)
+@with_notifications_lock()
 def migrate_notifications():
     for i, notification in enumerate(GlobalVars.notifications):
         if len(notification) == 4:
