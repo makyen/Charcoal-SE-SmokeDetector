@@ -15,6 +15,7 @@ import os.path as path
 import threading
 import copy
 import contextlib
+import pickle
 
 import regex
 # noinspection PyPackageRequirements
@@ -50,6 +51,7 @@ REPEATED_CHARACTER_RATIO = 0.20
 IMG_TXT_R_THRES = 0.7
 EXCEPTION_RE = r"^Domain (.*) didn't .*!$"
 RE_COMPILE = regex_compile_no_cache(EXCEPTION_RE)
+RE_COMPILE_PICKLED = pickle.dumps(RE_COMPILE, protocol=-1)
 COMMON_MALFORMED_PROTOCOLS = [
     ('httl://', 'http://'),
 ]
@@ -70,6 +72,7 @@ WHITELISTED_WEBSITES_REGEX = regex_compile_no_cache(r"(?i)upload|\b(?:{})\b".for
     "microsoft", "newegg", "cnet", "regex101", r"(?<!plus\.)google", "localhost", "ubuntu", "getbootstrap",
     r"jsfiddle\.net", r"codepen\.io", "pastebin", r"nltk\.org", r"xahlee\.info", r"ergoemacs\.org", "regexr"
 ] + [se_dom.replace(".", r"\.") for se_dom in SE_SITES_DOMAINS])))
+WHITELISTED_WEBSITES_REGEX_PICKLED = pickle.dumps(WHITELISTED_WEBSITES_REGEX, protocol=-1)
 URL_SHORTENER_REGEX_FRAGMENT = r"(?:{})".format('|'.join(regex.escape(site) for site in (
     '0i.is', '1b.yt', '1th.me', '92q.com', '9nl.me', 'adf.ly', 'adfoc.us', 'adyou.co',
     'alturl.com', 'amzn.to', 'bfy.tw', 'bit.do', 'bit.ly', 'bluenik.com', 'buff.ly',
@@ -336,7 +339,9 @@ URL_REGEX = regex_compile_no_cache(
     r"""(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))"""
     r"""|\b(?:(?:[A-Za-z\u00a1-\uffff0-9]-?)*[A-Za-z\u00a1-\uffff0-9]+)(?:\.(?:[A-Za-z\u00a1-\uffff0-9]-?)"""
     r"""*[A-Za-z\u00a1-\uffff0-9]+)*(?:\.(?:[A-Za-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:/\S*)?""", regex.U)
+URL_REGEX_PICKLED = pickle.dumps(URL_REGEX, protocol=-1)
 TAG_REGEX = regex_compile_no_cache(r"</?[abcdehiklopsu][^>]*?>|\w+://", regex.U)
+TAG_REGEX_PICKLED = pickle.dumps(TAG_REGEX, protocol=-1)
 
 UNIFORM = math.log(1 / 36)
 UNIFORM_PRIOR = math.log(1 / 5)
@@ -516,11 +521,11 @@ class Rule:
             with self.regex_lock:
                 if self.regex:
                     try:
-                        compiled_regex = copy.deepcopy(self.compiled_regex)
+                        compiled_regex = pickle.loads(self.pickled_regex)
                     except AttributeError:
                         compiled_regex = regex_compile_no_cache(self.regex, regex.UNICODE, city=city_list,
                                                                 ignore_unused=True)
-                        self.compiled_regex = copy.deepcopy(compiled_regex)
+                        self.pickled_regex = pickle.dumps(compiled_regex, protocol=-1)
 
             if compiled_regex:
                 if self.title and not post.is_answer:
@@ -599,7 +604,7 @@ class FindSpam:
                 cls.rule_bad_keywords.regex = r"(?is)(?:^|\b|(?w:\b))(?:{})(?:\b|(?w:\b)|$)|{}".format(
                     "|".join(GlobalVars.bad_keywords), "|".join(bad_keywords_nwb))
                 try:
-                    del cls.rule_bad_keywords.compiled_regex
+                    del cls.rule_bad_keywords.pickled_regex
                 except AttributeError:
                     pass
                 cls.rule_bad_keywords.sanity_check()
@@ -607,7 +612,7 @@ class FindSpam:
                 cls.rule_watched_keywords.regex = r'(?is)(?:^|\b|(?w:\b))(?:{})(?:\b|(?w:\b)|$)'.format(
                     "|".join(GlobalVars.watched_keywords.keys()))
                 try:
-                    del cls.rule_watched_keywords.compiled_regex
+                    del cls.rule_watched_keywords.pickled_regex
                 except AttributeError:
                     pass
                 cls.rule_watched_keywords.sanity_check()
@@ -615,7 +620,7 @@ class FindSpam:
                 cls.rule_blacklisted_websites.regex = r"(?i)({})".format(
                     "|".join(GlobalVars.blacklisted_websites))
                 try:
-                    del cls.rule_blacklisted_websites.compiled_regex
+                    del cls.rule_blacklisted_websites.pickled_regex
                 except AttributeError:
                     pass
                 cls.rule_blacklisted_websites.sanity_check()
@@ -623,7 +628,7 @@ class FindSpam:
                 cls.rule_blacklisted_usernames.regex = r"(?i)({})".format(
                     "|".join(GlobalVars.blacklisted_usernames))
                 try:
-                    del cls.rule_blacklisted_usernames.compiled_regex
+                    del cls.rule_blacklisted_usernames.pickled_regex
                 except AttributeError:
                     pass
                 cls.rule_blacklisted_usernames.sanity_check()
@@ -781,7 +786,8 @@ def create_rule(reason, regex=None, func=None, *, all=True, sites=[],
 
 def is_whitelisted_website(url):
     # Imported from method link_at_end
-    return bool(WHITELISTED_WEBSITES_REGEX.search(url)) or metasmoke_cache.is_website_whitelisted(url)
+    whitelisted_websites_regex = pickle.loads(WHITELISTED_WEBSITES_REGEX_PICKLED)
+    return bool(whitelisted_websites_regex.search(url)) or metasmoke_cache.is_website_whitelisted(url)
 
 
 def levenshtein(s1, s2):
@@ -922,7 +928,7 @@ def has_repeating_characters(s, site):
     s = s.strip().replace("\u200B", "").replace("\u200C", "")  # Strip leading and trailing spaces
     if "\n\n" in s or "<code>" in s or "<pre>" in s:
         return False, ""
-    s = URL_REGEX.sub("", s)  # Strip URLs for this check
+    s = pickle.loads(URL_REGEX_PICKLED).sub("", s)  # Strip URLs for this check
     if not s:
         return False, ""
     # Don't detect a couple of common ways for people to try to include tables (reduces FP by ~20%).
@@ -1616,7 +1622,7 @@ def post_links(post):
         edited_post = edited_post.replace(p[0], p[1])
 
     links = []
-    for l in URL_REGEX.findall(edited_post):
+    for l in pickle.loads(URL_REGEX_PICKLED).findall(edited_post):
         if l[-1].isalnum():
             links.append(l)
         else:
@@ -1729,7 +1735,7 @@ def get_domain(s, full=False):
         else:
             domain = extract.domain
     except TldDomainNotFound as e:
-        invalid_tld = RE_COMPILE.match(str(e)).group(1)
+        invalid_tld = pickle.loads(RE_COMPILE_PICKLED).match(str(e)).group(1)
         # Attempt to replace the invalid protocol
         s1 = s.replace(invalid_tld, 'http', 1)
         try:
@@ -1777,7 +1783,7 @@ def similar_answer(post):
 
 # noinspection PyMissingTypeHints
 def strip_urls_and_tags(s):
-    return URL_REGEX.sub("", TAG_REGEX.sub("", s))
+    return pickle.loads(URL_REGEX_PICKLED).sub("", pickle.loads(TAG_REGEX_PICKLED).sub("", s))
 
 
 @create_rule("mostly punctuation marks in {}", max_rep=52,
