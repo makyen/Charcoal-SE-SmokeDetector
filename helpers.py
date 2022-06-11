@@ -14,7 +14,6 @@ if 'windows' in platform_text and 'cygwin' not in platform_text:
 from glob import glob
 import sqlite3
 from urllib.parse import quote, quote_plus
-from threading import Thread
 
 from termcolor import colored
 import requests
@@ -394,9 +393,9 @@ def add_to_global_bodyfetcher_queue_in_new_thread(hostname, question_id, should_
     source_text = ""
     if source:
         source_text = " from {}".format(source)
-    t = Thread(name="bodyfetcher post enqueuing: {}/{}{}".format(hostname, question_id, source_text),
-               target=GlobalVars.bodyfetcher.add_to_queue,
-               args=(hostname, question_id, should_check_site, source))
+    t = threading.Thread(name="bodyfetcher post enqueuing: {}/{}{}".format(hostname, question_id, source_text),
+                         target=GlobalVars.bodyfetcher.add_to_queue,
+                         args=(hostname, question_id, should_check_site, source))
     t.start()
 
 
@@ -489,3 +488,17 @@ def rewrap_for_monkeypatch_argument():
             return func(monkeypatch)
         return wrap
     return decorator
+
+
+def get_thread_local_regex(ident, pickle_data):
+    local = threading.local()
+    try:
+        sd_regex_cache = local.sd_regex_cache
+    except AttributeError:
+        sd_regex_cache = {}
+        local.sd_regex_cache = sd_regex_cache
+    try:
+        return sd_regex_cache[ident]
+    except KeyError:
+        sd_regex_cache[ident] = regex._regex.compile(*pickle_data)
+        return sd_regex_cache[ident]
