@@ -37,6 +37,8 @@ if tuple(int(x) for x in regex.__version__.split('.')) < (2, 5, 82):
         'Need regex >= 2020.6.8 (internal version number 2.5.82; got %s)' %
         regex.__version__)
 
+is_pytest = "pytest" in sys.modules
+
 LINK_CACHE = dict()
 LINK_CACHE_lock = threading.RLock()
 LEVEN_DOMAIN_DISTANCE = 3
@@ -1368,7 +1370,7 @@ def dns_query(label, qtype):
         starttime = datetime.utcnow()
         # Extend lifetime if we are running a test
         extra_params = dict()
-        if "pytest" in sys.modules:
+        if is_pytest:
             extra_params['lifetime'] = 60
         answer = dns.resolver.resolve(label, qtype, search=True, **extra_params)
     except dns.exception.DNSException as exc:
@@ -1398,7 +1400,7 @@ def asn_query(ip):
 
 
 def ns_for_url_domain(s, site, nslist):
-    if "pytest" in sys.modules:
+    if is_pytest:
         for nsentry in nslist:
             if isinstance(nsentry, list):
                 for ns in nsentry:
@@ -1884,6 +1886,7 @@ def body_starts_with_title(post):
 
     # Safeguard for answers, should never hit
     if post.is_answer or len(t) <= 10:
+        if not is_pytest:
             log('warning', "Length of post title is 10 characters or less. This is highly abnormal")
         return False, False, False, ""
 
