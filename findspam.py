@@ -869,7 +869,7 @@ def misleading_link(s, site):
 
 
 # noinspection PyUnusedLocal,PyMissingTypeHints,PyTypeChecker
-@create_rule("repeating words in {}", max_rep=11, stripcodeblocks=True)
+@create_rule("repeating words in {}", max_rep=11, stripcodeblocks=True, thread_safe=True)
 def has_repeating_words(s, site):
     # RegEx DoS warning!!!
     matcher = regex.compile(r"\b(?P<words>(?P<word>[a-z]+))(?:[][\s.,;!/\()+_-]+(?P<words>(?P=word))){4,}\b",
@@ -883,7 +883,7 @@ def has_repeating_words(s, site):
 
 
 # noinspection PyUnusedLocal,PyMissingTypeHints
-@create_rule("few unique characters in {}", title=False, max_rep=10000, max_score=10000)
+@create_rule("few unique characters in {}", title=False, max_rep=10000, max_score=10000, thread_safe=True)
 def has_few_characters(s, site):
     s = regex.sub("</?(?:p|strong|em)>", "", s).rstrip()  # remove HTML paragraph tags from posts
     uniques = len(set(s) - {"\n", "\t"})
@@ -910,7 +910,7 @@ def len_img_block(string):
 
 
 # max_score=2 to prevent voting fraud
-@create_rule("post is mostly images", title=False, max_rep=201, max_score=2)
+@create_rule("post is mostly images", title=False, max_rep=201, max_score=2, thread_safe=True)
 def mostly_img(s, site):
     if len(s) == 0:
         return False, ""
@@ -922,7 +922,7 @@ def mostly_img(s, site):
 
 
 # noinspection PyUnusedLocal,PyMissingTypeHints
-@create_rule("repeating characters in {}", stripcodeblocks=True, max_rep=10000, max_score=10000)
+@create_rule("repeating characters in {}", stripcodeblocks=True, max_rep=10000, max_score=10000, thread_safe=True)
 def has_repeating_characters(s, site):
     s = s.strip().replace("\u200B", "").replace("\u200C", "")  # Strip leading and trailing spaces
     if "\n\n" in s or "<code>" in s or "<pre>" in s:
@@ -943,7 +943,7 @@ def has_repeating_characters(s, site):
 
 
 # noinspection PyUnusedLocal,PyMissingTypeHints
-@create_rule("link at end of {}", title=False, all=False,
+@create_rule("link at end of {}", title=False, all=False, thread_safe=True,
              sites=["superuser.com", "askubuntu.com", "drupal.stackexchange.com", "meta.stackexchange.com",
                     "security.stackexchange.com", "patents.stackexchange.com", "money.stackexchange.com",
                     "gaming.stackexchange.com", "arduino.stackexchange.com", "workplace.stackexchange.com"],
@@ -968,7 +968,7 @@ def link_at_end(s, site):   # link at end of question, on selected sites
     "judaism.stackexchange.com", "buddhism.stackexchange.com", "chinese.stackexchange.com",
     "russian.stackexchange.com", "french.stackexchange.com", "portuguese.stackexchange.com",
     "spanish.stackexchange.com", "codegolf.stackexchange.com", "korean.stackexchange.com",
-    "esperanto.stackexchange.com", "ukrainian.stackexchange.com"])
+    "esperanto.stackexchange.com", "ukrainian.stackexchange.com"], thread_safe=True)
 def non_english_link(s, site):   # non-english link in short answer
     if len(s) < 600:
         links = regex.compile(r'nofollow(?: noreferrer)?">([^<]*)(?=</a>)', regex.UNICODE).findall(s)
@@ -988,12 +988,12 @@ def non_english_link(s, site):   # non-english link in short answer
     "hinduism.stackexchange.com", "judaism.stackexchange.com", "buddhism.stackexchange.com",
     "chinese.stackexchange.com", "french.stackexchange.com", "spanish.stackexchange.com",
     "portuguese.stackexchange.com", "codegolf.stackexchange.com", "korean.stackexchange.com",
-    "ukrainian.stackexchange.com"], body_summary=True, rule_id="Mostly non-Latin: most sites")
+    "ukrainian.stackexchange.com"], body_summary=True, rule_id="Mostly non-Latin: most sites", thread_safe=True)
 def mostly_non_latin_most_sites(s, site):
     return _mostly_non_latin(s, site)
 
 
-@create_rule("mostly non-Latin {}", all=False, sites=["stackoverflow.com"],
+@create_rule("mostly non-Latin {}", all=False, sites=["stackoverflow.com"], thread_safe=True,
              stripcodeblocks=True, body_summary=True, question=False, rule_id="Mostly non-Latin: SO answers only")
 def mostly_non_latin_so_answers(s, site):
     return _mostly_non_latin(s, site)
@@ -1010,7 +1010,8 @@ def _mostly_non_latin(s, site):   # majority of post is in non-Latin, non-Cyrill
 # noinspection PyUnusedLocal,PyMissingTypeHints
 @create_rule("phone number detected in {}", body=False,
              sites=["patents.stackexchange.com", "math.stackexchange.com", "mathoverflow.net"],
-             rule_id="phone number detected in: main has_phone_number, not patents, math, mathoverflow")
+             rule_id="phone number detected in: main has_phone_number, not patents, math, mathoverflow",
+             thread_safe=False)  # Based on a quick look at the phonenumbers package, it appears to not be thread safe.
 def has_phone_number(s, site):
     if regex.compile(r"(?i)\b(address(es)?|run[- ]?time|error|value|server|hostname|timestamp|warning|code|"
                      r"(sp)?exception|version|chrome|1234567)\b", regex.UNICODE).search(s):
@@ -1080,7 +1081,8 @@ def check_numbers(s, numlist, numlist_normalized=None):
         return False, ''
 
 
-@create_rule("bad phone number in {}", body_summary=True, max_rep=32, max_score=1, stripcodeblocks=True)
+@create_rule("bad phone number in {}", body_summary=True, max_rep=32, max_score=1, stripcodeblocks=True,
+             thread_safe=True)
 def check_blacklisted_numbers(s, site):
     with GlobalVars.blacklisted_numbers_lock:
         blacklisted_numbers = GlobalVars.blacklisted_numbers
@@ -1093,7 +1095,7 @@ def check_blacklisted_numbers(s, site):
 
 
 @create_rule("potentially bad keyword in {}", body_summary=True, max_rep=32, max_score=1, stripcodeblocks=True,
-             rule_id="potentially bad phone number")
+             rule_id="potentially bad phone number", thread_safe=True)
 def check_watched_numbers(s, site):
     with GlobalVars.watched_numbers_lock:
         watched_numbers = GlobalVars.watched_numbers
@@ -1107,7 +1109,7 @@ def check_watched_numbers(s, site):
 
 # noinspection PyUnusedLocal,PyMissingTypeHints
 @create_rule("potentially bad keyword in {}", all=False, rule_id="potentially bad customer support phrase",
-             sites=["askubuntu.com", "webapps.stackexchange.com", "webmasters.stackexchange.com"])
+             sites=["askubuntu.com", "webapps.stackexchange.com", "webmasters.stackexchange.com"], thread_safe=True)
 def customer_support_phrase(s, site):  # flexible detection of customer service
     # We don't want to double-detect phrases which the bad keywords list already detects,
     # so we remove anything that matches those from the string to test.
@@ -1127,7 +1129,7 @@ def customer_support_phrase(s, site):  # flexible detection of customer service
 
 
 # noinspection PyUnusedLocal,PyMissingTypeHints
-@create_rule("scam aimed at customers in {}")
+@create_rule("scam aimed at customers in {}", thread_safe=True)
 def scam_aimed_at_customers(s, site):  # Scams aimed at customers of specific companies or industries
     s = s[0:300].lower()   # if applied to body, the beginning should be enough: otherwise many false positives
     s = regex.sub(r"[^A-Za-z0-9\s]", "", s)   # deobfuscate
@@ -1149,7 +1151,8 @@ def scam_aimed_at_customers(s, site):  # Scams aimed at customers of specific co
     "stackoverflow.com", "superuser.com", "askubuntu.com", "drupal.stackexchange.com",
     "meta.stackexchange.com", "security.stackexchange.com", "webapps.stackexchange.com",
     "apple.stackexchange.com", "graphicdesign.stackexchange.com", "workplace.stackexchange.com",
-    "patents.stackexchange.com", "money.stackexchange.com", "gaming.stackexchange.com", "arduino.stackexchange.com"])
+    "patents.stackexchange.com", "money.stackexchange.com", "gaming.stackexchange.com", "arduino.stackexchange.com"],
+    thread_safe=True)
 def has_health(s, site):   # flexible detection of health spam in titles
     s = s[0:200]   # if applied to body, the beginning should be enough: otherwise many false positives
     capitalized = len(regex.compile(r"\b[A-Z][a-z]").findall(s)) >= 5   # words beginning with uppercase letter
@@ -1180,7 +1183,7 @@ def has_health(s, site):   # flexible detection of health spam in titles
 
 # Pattern-matching product name: three keywords in a row at least once, or two in a row at least twice
 @create_rule("pattern-matching product name in {}", body_summary=True, stripcodeblocks=True, answer=False,
-             max_rep=12, max_score=1)
+             max_rep=12, max_score=1, thread_safe=True)
 def pattern_product_name(s, site):
     required_keywords = [
         "Testo(?:sterone)?s?", "Derma?(?:pholia)?", "Garcinia", "Cambogia", "Forskolin", "Diet", "Slim", "Serum",
@@ -1217,7 +1220,7 @@ def pattern_product_name(s, site):
     return False, ""
 
 
-@create_rule("bad keyword with email in {}", stripcodeblocks=True)
+@create_rule("bad keyword with email in {}", stripcodeblocks=True, thread_safe=True)
 def keyword_email(s, site):   # a keyword and an email in the same post
     if regex.compile("<pre>|<code>").search(s) and site == "stackoverflow.com":  # Avoid false positives on SO
         return False, ""
@@ -1242,7 +1245,7 @@ def keyword_email(s, site):   # a keyword and an email in the same post
     return False, ""
 
 
-@create_rule("pattern-matching email in {}", stripcodeblocks=True)
+@create_rule("pattern-matching email in {}", stripcodeblocks=True, thread_safe=True)
 def pattern_email(s, site):
     pattern = regex.compile(r"(?i)(?<![=#/])\b(dr|[A-z0-9_.%+-]*"
                             r"(loan|hack|financ|fund|spell|temple|herbal|spiritual|atm|heal|priest|classes|"
@@ -1255,7 +1258,7 @@ def pattern_email(s, site):
     return False, ""
 
 
-@create_rule("bad keyword with a link in {}", title=False, question=False)
+@create_rule("bad keyword with a link in {}", title=False, question=False, thread_safe=True)
 def keyword_link(s, site):   # thanking keyword and a link in the same short answer
     if len(s) > 400:
         return False, ""
@@ -1288,7 +1291,7 @@ def keyword_link(s, site):   # thanking keyword and a link in the same short ans
     return False, ""
 
 
-@create_rule("bad keyword in link text in {}", title=False, stripcodeblocks=True)
+@create_rule("bad keyword in link text in {}", title=False, stripcodeblocks=True, thread_safe=True)
 def bad_link_text(s, site):   # suspicious text of a hyperlink
     s = regex.sub("</?(?:strong|em)>", "", s)  # remove font tags
     keywords = regex.compile(
@@ -1324,7 +1327,7 @@ def bad_link_text(s, site):   # suspicious text of a hyperlink
     return False, ""
 
 
-@create_rule("bad pattern in URL {}", title=False, body_summary=True, stripcodeblocks=True)
+@create_rule("bad pattern in URL {}", title=False, body_summary=True, stripcodeblocks=True, thread_safe=True)
 def bad_pattern_in_url(s, site):
     patterns = [
         r'[^"]*-reviews?(?:-(?:canada|(?:and|or)-scam))?/?',
@@ -1539,7 +1542,7 @@ def watched_asn_for_url_hostname(s, site):
 
 
 @create_rule("offensive {} detected", body_summary=True, max_rep=101, max_score=2, stripcodeblocks=True,
-             rule_id="offensive detected: main is_offensive_post, no code")
+             rule_id="offensive detected: main is_offensive_post, no code", thread_safe=True)
 def is_offensive_post(s, site):
     if not s:
         return False, ""
@@ -1787,7 +1790,7 @@ def strip_urls_and_tags(s):
     return url_regex.sub("", tag_regex.sub("", s))
 
 
-@create_rule("mostly punctuation marks in {}", max_rep=52,
+@create_rule("mostly punctuation marks in {}", max_rep=52, thread_safe=True,
              sites=["math.stackexchange.com", "mathoverflow.net", "codegolf.stackexchange.com"])
 def mostly_punctuations(s, site):
     # Strip code blocks here rather than with `stripcodeblocks` so we get the length of the whole post in s.
@@ -1817,7 +1820,8 @@ def mostly_punctuations(s, site):
         return False, ""
 
 
-@create_rule("no whitespace in {}", body=False, max_rep=10000, max_score=10000, rule_id="No whitespace in titles")
+@create_rule("no whitespace in {}", body=False, max_rep=10000, max_score=10000, rule_id="No whitespace in titles",
+             thread_safe=True)
 def no_whitespace_title(s, site):
     if regex.compile(r"(?is)^[0-9a-z]{20,}\s*$").match(s):
         return True, "No whitespace or formatting in title"
@@ -1825,7 +1829,8 @@ def no_whitespace_title(s, site):
         return False, ""
 
 
-@create_rule("no whitespace in {}", title=False, max_rep=10000, max_score=10000, rule_id="No whitespace in bodies")
+@create_rule("no whitespace in {}", title=False, max_rep=10000, max_score=10000, rule_id="No whitespace in bodies",
+             thread_safe=True)
 def no_whitespace_body(s, site):
     if regex.compile(r"(?is)^<p>[0-9a-z]+</p>\s*$").match(s):
         return True, "No whitespace or formatting in body"
@@ -1879,7 +1884,7 @@ def body_starts_with_title(post):
 
     # Safeguard for answers, should never hit
     if post.is_answer or len(t) <= 10:
-        log('warning', "Length of post title is 10 characters or less. This is highly abnormal")
+            log('warning', "Length of post title is 10 characters or less. This is highly abnormal")
         return False, False, False, ""
 
     end_in_url, ending_url = link_at_end(post.body, None)
@@ -1912,7 +1917,7 @@ def body_starts_with_title(post):
     return False, False, False, ""
 
 
-@create_rule("luncheon meat detected", title=False, max_rep=21,
+@create_rule("luncheon meat detected", title=False, max_rep=21, thread_safe=True,
              all=False, sites=["stackoverflow.com", "superuser.com"])
 def luncheon_meat(s, site):  # Random "signature" like asdfghjkl
     s = regex.search(r"<p>\s*?(\S{8,})\s*?</p>$", s.lower())
@@ -1935,7 +1940,7 @@ def luncheon_meat(s, site):  # Random "signature" like asdfghjkl
     return p2 > p1, "match: {}, p1: {}, p2: {}".format(s[1], p1, p2)
 
 
-@create_rule("himalayan pink salt detected", whole_post=True, disabled=True)
+@create_rule("himalayan pink salt detected", whole_post=True, disabled=True, thread_safe=True)
 def turkey2(post):
     if regex.search("([01]{8}|zoe)", post.body):
         with chatcommunicate._clients_lock:
@@ -1954,7 +1959,7 @@ def turkey2(post):
 @create_rule("offensive {} detected", all=False, stripcodeblocks=True, max_rep=101, max_score=1,
              sites=["hindiusm.stackexchange.com", "islam.stackexchange.com",
                     "judaism.stackexchange.com", "medicalsciences.stackexchange.com"],
-             rule_id="offensive detected: religion_troll")
+             rule_id="offensive detected: religion_troll", thread_safe=True)
 def religion_troll(s, site):
     regexes = [
         r'(?:(?:Rubellite\W*(?:Fae|Yaksi)|Sarvabhouma|Rohit|Anisha|Ahmed\W*Bkhaty|Anubhav\W*Jha|Vineet\W*Aggarwal|Josh'
@@ -2695,7 +2700,7 @@ def create_1337_translation():
 translation_1337 = create_1337_translation()
 
 
-@create_rule("obfuscated word in {}", max_rep=50, stripcodeblocks=True)
+@create_rule("obfuscated word in {}", max_rep=50, stripcodeblocks=True, thread_safe=True)
 def obfuscated_word(s, site):
     for word in regex.split(r'[-\s_]+', s):
         # prevent FP on stuff like 'I have this "number": 1111'
