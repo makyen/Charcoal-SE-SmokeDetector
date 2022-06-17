@@ -25,7 +25,7 @@ import dns.resolver
 import requests
 import chatcommunicate
 
-from helpers import log, regex_compile_no_cache, get_thread_local_regex
+from helpers import log, get_thread_local_regex
 import metasmoke_cache
 from globalvars import GlobalVars
 import blacklists
@@ -48,8 +48,6 @@ PUNCTUATION_RATIO = 0.42
 REPEATED_CHARACTER_RATIO = 0.20
 IMG_TXT_R_THRES = 0.7
 EXCEPTION_RE = r"^Domain (.*) didn't .*!$"
-RE_COMPILE = regex_compile_no_cache(EXCEPTION_RE)
-RE_COMPILE_PICKLE_DATA = RE_COMPILE._pickled_data
 COMMON_MALFORMED_PROTOCOLS = [
     ('httl://', 'http://'),
 ]
@@ -65,12 +63,11 @@ SE_SITES_RE = r'(?:{sites})'.format(
 SE_SITES_DOMAINS = ['stackoverflow.com', 'askubuntu.com', 'superuser.com', 'serverfault.com',
                     'mathoverflow.net', 'stackapps.com', 'stackexchange.com', 'sstatic.net',
                     'imgur.com']  # Frequently catching FP
-WHITELISTED_WEBSITES_REGEX = regex_compile_no_cache(r"(?i)upload|\b(?:{})\b".format("|".join([
+WHITELISTED_WEBSITES_REGEX_TEXT = r"(?i)upload|\b(?:{})\b".format("|".join([
     "yfrog", "gfycat", "tinypic", "sendvid", "ctrlv", "prntscr", "gyazo", r"youtu\.?be", "past[ie]", "dropbox",
     "microsoft", "newegg", "cnet", "regex101", r"(?<!plus\.)google", "localhost", "ubuntu", "getbootstrap",
     r"jsfiddle\.net", r"codepen\.io", "pastebin", r"nltk\.org", r"xahlee\.info", r"ergoemacs\.org", "regexr"
-] + [se_dom.replace(".", r"\.") for se_dom in SE_SITES_DOMAINS])))
-WHITELISTED_WEBSITES_REGEX_PICKLE_DATA = WHITELISTED_WEBSITES_REGEX._pickled_data
+] + [se_dom.replace(".", r"\.") for se_dom in SE_SITES_DOMAINS]))
 URL_SHORTENER_REGEX_FRAGMENT = r"(?:{})".format('|'.join(regex.escape(site) for site in (
     '0i.is', '1b.yt', '1th.me', '92q.com', '9nl.me', 'adf.ly', 'adfoc.us', 'adyou.co',
     'alturl.com', 'amzn.to', 'bfy.tw', 'bit.do', 'bit.ly', 'bluenik.com', 'buff.ly',
@@ -330,16 +327,14 @@ if GlobalVars.perspective_key:
 # stupid and don't always know how to actually *link* their web site. BeautifulSoup misses
 # those plain text URLs.
 # https://gist.github.com/dperini/729294#gistcomment-1296121
-URL_REGEX = regex_compile_no_cache(
+URL_REGEX_TEXT = (
     r"""((?:(?:https?|ftp)://)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)"""
     r"""(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2}))"""
     r"""(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])"""
     r"""(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))"""
     r"""|\b(?:(?:[A-Za-z\u00a1-\uffff0-9]-?)*[A-Za-z\u00a1-\uffff0-9]+)(?:\.(?:[A-Za-z\u00a1-\uffff0-9]-?)"""
-    r"""*[A-Za-z\u00a1-\uffff0-9]+)*(?:\.(?:[A-Za-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:/\S*)?""", regex.U)
-URL_REGEX_PICKLE_DATA = URL_REGEX._pickled_data
-TAG_REGEX = regex_compile_no_cache(r"</?[abcdehiklopsu][^>]*?>|\w+://", regex.U)
-TAG_REGEX_PICKLE_DATA = TAG_REGEX._pickled_data
+    r"""*[A-Za-z\u00a1-\uffff0-9]+)*(?:\.(?:[A-Za-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:/\S*)?""")
+TAG_REGEX_TEXT = r"</?[abcdehiklopsu][^>]*?>|\w+://"
 
 UNIFORM = math.log(1 / 36)
 UNIFORM_PRIOR = math.log(1 / 5)
@@ -428,7 +423,7 @@ class Rule:
         self.regex = None
         self.regex_lock = threading.RLock()
         self.func = None
-        if isinstance(item, (str, URL_REGEX.__class__)):
+        if isinstance(item, (str, regex.compile(URL_REGEX_TEXT, regex.U).__class__)):
             self.regex = item
         else:
             self.func = item
@@ -518,12 +513,8 @@ class Rule:
             compiled_regex = None
             with self.regex_lock:
                 if self.regex:
-                    try:
-                        compiled_regex = get_thread_local_regex(self.rule_id, self.regex_pickle_data)
-                    except AttributeError:
-                        compiled_regex = regex_compile_no_cache(self.regex, regex.UNICODE, city=city_list,
-                                                                ignore_unused=True)
-                        self.regex_pickle_data = compiled_regex._pickled_data
+                    compiled_regex = regex.compile(self.regex, regex.UNICODE, city=city_list,
+                                                   ignore_unused=True)
 
             if compiled_regex:
                 if self.title and not post.is_answer:
@@ -601,34 +592,18 @@ class FindSpam:
             with cls.rule_bad_keywords.regex_lock:
                 cls.rule_bad_keywords.regex = r"(?is)(?:^|\b|(?w:\b))(?:{})(?:\b|(?w:\b)|$)|{}".format(
                     "|".join(GlobalVars.bad_keywords), "|".join(bad_keywords_nwb))
-                try:
-                    del cls.rule_bad_keywords.regex_pickle_data
-                except AttributeError:
-                    pass
                 cls.rule_bad_keywords.sanity_check()
             with cls.rule_watched_keywords.regex_lock:
                 cls.rule_watched_keywords.regex = r'(?is)(?:^|\b|(?w:\b))(?:{})(?:\b|(?w:\b)|$)'.format(
                     "|".join(GlobalVars.watched_keywords.keys()))
-                try:
-                    del cls.rule_watched_keywords.regex_pickle_data
-                except AttributeError:
-                    pass
                 cls.rule_watched_keywords.sanity_check()
             with cls.rule_blacklisted_websites.regex_lock:
                 cls.rule_blacklisted_websites.regex = r"(?i)({})".format(
                     "|".join(GlobalVars.blacklisted_websites))
-                try:
-                    del cls.rule_blacklisted_websites.regex_pickle_data
-                except AttributeError:
-                    pass
                 cls.rule_blacklisted_websites.sanity_check()
             with cls.rule_blacklisted_usernames.regex_lock:
                 cls.rule_blacklisted_usernames.regex = r"(?i)({})".format(
                     "|".join(GlobalVars.blacklisted_usernames))
-                try:
-                    del cls.rule_blacklisted_usernames.regex_pickle_data
-                except AttributeError:
-                    pass
                 cls.rule_blacklisted_usernames.sanity_check()
             with GlobalVars.blacklisted_numbers_lock:
                 GlobalVars.blacklisted_numbers_full, GlobalVars.blacklisted_numbers, \
@@ -795,8 +770,7 @@ def create_rule(reason, regex=None, func=None, *, all=True, sites=[],
 
 def is_whitelisted_website(url):
     # Imported from method link_at_end
-    whitelisted_websites_regex = get_thread_local_regex('WHITELISTED_WEBSITES_REGEX',
-                                                        WHITELISTED_WEBSITES_REGEX_PICKLE_DATA)
+    whitelisted_websites_regex = regex.compile(WHITELISTED_WEBSITES_REGEX_TEXT)
     return bool(whitelisted_websites_regex.search(url)) or metasmoke_cache.is_website_whitelisted(url)
 
 
@@ -938,7 +912,7 @@ def has_repeating_characters(s, site):
     s = s.strip().replace("\u200B", "").replace("\u200C", "")  # Strip leading and trailing spaces
     if "\n\n" in s or "<code>" in s or "<pre>" in s:
         return False, ""
-    s = get_thread_local_regex('URL_REGEX', URL_REGEX_PICKLE_DATA).sub("", s)  # Strip URLs for this check
+    s = regex.compile(URL_REGEX_TEXT, regex.U).sub("", s)  # Strip URLs for this check
     if not s:
         return False, ""
     # Don't detect a couple of common ways for people to try to include tables (reduces FP by ~20%).
@@ -1634,7 +1608,7 @@ def post_links(post):
         edited_post = edited_post.replace(p[0], p[1])
 
     links = []
-    for l in get_thread_local_regex('URL_REGEX', URL_REGEX_PICKLE_DATA).findall(edited_post):
+    for l in regex.compile(URL_REGEX_TEXT, regex.U).findall(edited_post):
         if l[-1].isalnum():
             links.append(l)
         else:
@@ -1747,7 +1721,7 @@ def get_domain(s, full=False):
         else:
             domain = extract.domain
     except TldDomainNotFound as e:
-        invalid_tld = get_thread_local_regex('RE_COMPILE', RE_COMPILE_PICKLE_DATA).match(str(e)).group(1)
+        invalid_tld = regex.compile(EXCEPTION_RE).match(str(e)).group(1)
         # Attempt to replace the invalid protocol
         s1 = s.replace(invalid_tld, 'http', 1)
         try:
@@ -1795,8 +1769,8 @@ def similar_answer(post):
 
 # noinspection PyMissingTypeHints
 def strip_urls_and_tags(s):
-    url_regex = get_thread_local_regex('URL_REGEX', URL_REGEX_PICKLE_DATA)
-    tag_regex = get_thread_local_regex('TAG_REGEX', TAG_REGEX_PICKLE_DATA)
+    url_regex = regex.compile(URL_REGEX_TEXT, regex.U)
+    tag_regex = regex.compile(TAG_REGEX_TEXT, regex.U)
     return url_regex.sub("", tag_regex.sub("", s))
 
 
