@@ -440,7 +440,7 @@ class Rule:
         self.rule_id = rule_id
         self.elapsed_time_reporting = elapsed_time_reporting
         self.thread_safe = thread_safe
-        self.rule_thread_lock = contextlib.suppress() if thread_safe else threading.RLock()
+        self.rule_thread_lock = contextlib.suppress()
         if not skip_creation_sanity_check:
             self.sanity_check()
 
