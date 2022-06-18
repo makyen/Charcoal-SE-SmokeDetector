@@ -38,15 +38,6 @@ jobs:
           paths:
             - "/home/circleci/.cache/pip"
       - run:
-          name: Lint ./tests
-          command: python3 -m flake8 --config=tox_tests.ini ./test/
-      - run:
-          name: Lint ./classes
-          command: python3 -m flake8 --config=tox_classes.ini ./classes/
-      - run:
-          name: Lint code
-          command: python3 -m flake8 ./
-      - run:
           name: Prepare Git for test
           command: |
             git config user.name SmokeDetector
@@ -55,4 +46,4 @@ jobs:
           name: Pytest
           # Use 5 processes is intended to allow one DNS lookup bound long running test run
           # in parallel with most of the other tests which generally consume more CPU.
-          command: python3 -W default::Warning -m pytest -n 5 --dist loadgroup test
+          command: python3 -W default::Warning -m pytest -n 5 --dist loadgroup test/test_regex.py

@@ -40,22 +40,9 @@ jobs:
       run: |
         pip3 install -U wheel --upgrade-strategy eager
         pip3 install -U -r requirements.txt -r user_requirements.txt pytest-cov coveralls --upgrade-strategy eager
-    - name: Lint ./tests
-      run: python3 -m flake8 --config=tox_tests.ini ./test/
-    - name: Lint ./classes
-      run: python3 -m flake8 --config=tox_classes.ini ./classes/
-    - name: Lint code
-      run: python3 -m flake8 ./
     - name: Pytest
       run: |
         python3 -W default::Warning -m pytest \
-          --cov=chatcommunicate \
-          --cov=findspam \
-          --cov=globalvars \
-          --cov=spamhandling \
-          --cov=datahandling \
-          --cov=chatcommands \
-          --cov=helpers \
           -n 3 \
           --dist loadgroup \
-          test
+          test/test_regex.py
