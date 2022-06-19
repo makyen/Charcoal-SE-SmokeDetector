@@ -43,6 +43,6 @@ jobs:
     - name: Pytest
       run: |
         python3 -W default::Warning -m pytest \
-          -n 3 \
+          -n 11 \
           --dist loadgroup \
           test/test_regex.py
