@@ -51,4 +51,5 @@ jobs:
         python3 -W default::Warning -m pytest \
           -n 3 \
           --dist loadgroup \
+          --durations=400 \
           test
