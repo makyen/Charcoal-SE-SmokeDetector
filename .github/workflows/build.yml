@@ -49,13 +49,6 @@ jobs:
     - name: Pytest
       run: |
         python3 -W default::Warning -m pytest \
-          --cov=chatcommunicate \
-          --cov=findspam \
-          --cov=globalvars \
-          --cov=spamhandling \
-          --cov=datahandling \
-          --cov=chatcommands \
-          --cov=helpers \
           -n 3 \
           --dist loadgroup \
           test
