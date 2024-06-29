@@ -43,6 +43,7 @@ class DeletionWatcher:
                                                       timeout=GlobalVars.se_websocket_timeout)
             self.connect_time = time.time()
             self.hb_time = None
+            log('debug', '{}: WebSocket: Connection established'.format(self.__class__.__name__))
         except websocket.WebSocketException:
             self.socket = None
             log('error', '{}: WebSocket: failed to create a websocket connection'.format(self.__class__.__name__))
@@ -59,12 +60,14 @@ class DeletionWatcher:
         while True:
             try:
                 msg = self.socket.recv()
+                log('debug', '{}: WebSocket: message received: {}'.format(self.__class__.__name__, msg))
 
                 if msg:
                     msg = json.loads(msg)
                     action = msg["action"]
 
                     if action == "hb":
+                        log('debug', '{}: WebSocket: heartbeat received'.format(self.__class__.__name__))
                         self.hb_time = time.time()
                         self.socket.send("hb")
                     else:
@@ -91,6 +94,7 @@ class DeletionWatcher:
                 self.socket = None
                 self.socket = recover_websocket(self.__class__.__name__, ws, e, self.connect_time, self.hb_time)
                 self._subscribe_to_all_saved_posts()
+                log('debug', '{}: WebSocket: Connection reestablished'.format(self.__class__.__name__))
                 self.connect_time = time.time()
                 self.hb_time = None
 
@@ -137,6 +141,8 @@ class DeletionWatcher:
         if self.socket:
             try:
                 self.socket.send(action)
+                log('debug', '{}: WebSocket: subscribed to: {}; posts length: {}'.format(self.__class__.__name__,
+                                                                                         action, len(self.posts)))
             except websocket.WebSocketException:
                 log('error', '{}: failed to subscribe to {}'.format(self.__class__.__name__, action))
         else:
@@ -186,6 +192,9 @@ class DeletionWatcher:
         if self.socket:
             try:
                 self.socket.send("-" + action)
+                log('debug', '{}: WebSocket: unsubscribed to: {}; posts length: {}'.format(self.__class__.__name__,
+                                                                                           action, len(self.posts)))
+
             except websocket.WebSocketException:
                 log('error', '{}: failed to unsubscribe to {}'.format(self.__class__.__name__, action))
         else:

@@ -276,6 +276,7 @@ def init_se_websocket_or_reboot(max_tries, tell_debug_room_on_error=False):
 
 if not GlobalVars.no_se_activity_scan:
     ws = init_se_websocket_or_reboot(MAX_SE_WEBSOCKET_RETRIES)
+    log('debug', '{}: WebSocket: Connection established'.format("main SE"))
     ws_connect_time = time.time()
     ws_hb_time = None
 
@@ -293,10 +294,12 @@ metasmoke_ws_t.start()
 while not GlobalVars.no_se_activity_scan:
     try:
         a = ws.recv()
+        log('debug', '{}: WebSocket: message received: {}'.format("main SE", a))
         if a is not None and a != "":
             message = json.loads(a)
             action = message["action"]
             if action == "hb":
+                log('debug', '{}: WebSocket: heartbeat received'.format("main SE"))
                 ws_hb_time = time.time()
                 ws.send("hb")
             if action == "155-questions-active":
@@ -334,6 +337,7 @@ while not GlobalVars.no_se_activity_scan:
         if not GlobalVars.no_se_activity_scan:
             ws.close()  # Close the prior WebSocket, if open.
             ws = init_se_websocket_or_reboot(MAX_SE_WEBSOCKET_RETRIES, tell_debug_room_on_error=True)
+            log('debug', '{}: WebSocket: Connection reestablished'.format("main SE"))
             tell_debug_rooms_recovered_websocket("main SE", e, ws_connect_time, ws_hb_time)
             ws_connect_time = time.time()
             ws_hb_time = None
