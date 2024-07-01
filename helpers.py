@@ -43,26 +43,26 @@ def exit_mode(*args, code=0):
     try:
         datahandling.flush_queue_timings_data()
     except Exception:
-        pass
+        log_current_exception()
     try:
         datahandling.store_post_scan_stats()
     except Exception:
-        pass
+        log_current_exception()
     try:
         datahandling.store_recently_scanned_posts()
     except Exception:
-        pass
+        log_current_exception()
     # Store other pickles as we exit
     try:
         if GlobalVars.edit_watcher:
             GlobalVars.edit_watcher.save()
     except Exception:
-        pass
+        log_current_exception()
     try:
         if GlobalVars.deletion_watcher:
             GlobalVars.deletion_watcher.save()
     except Exception:
-        pass
+        log_current_exception()
 
     # We have to use '_exit' here, because 'sys.exit' only exits the current
     # thread (not the current process).  Unfortunately, this results in
