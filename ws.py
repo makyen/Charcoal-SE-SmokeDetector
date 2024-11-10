@@ -121,6 +121,7 @@ if GlobalVars.dns_cache_enabled:
 
 dns.resolver.get_default_resolver().timeout = 2
 dns.resolver.get_default_resolver().lifetime = 5
+dns.resolver.override_system_resolver()
 
 
 # noinspection PyProtectedMember
