@@ -119,6 +119,9 @@ if GlobalVars.dns_nameservers != 'system':
 if GlobalVars.dns_cache_enabled:
     dns.resolver.get_default_resolver().cache = dns.resolver.Cache(GlobalVars.dns_cache_interval)
 
+dns.resolver.get_default_resolver().timeout = 2
+dns.resolver.get_default_resolver().lifetime = 5
+
 
 # noinspection PyProtectedMember
 def restart_automatically():
