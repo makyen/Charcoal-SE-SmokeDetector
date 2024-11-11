@@ -113,14 +113,18 @@ if not GlobalVars.metasmoke_ws_host:
 # default resolver in it.  Since this activates and initializes the DNS *long* before
 # the chat or metasmoke websockets have been initiated, this is a 'safe space' to
 # begin initialization of the DNS data.
+default_dns_resolver = dns.resolver.get_default_resolver()
+print('WS GlobalVars.dns_nameservers:', GlobalVars.dns_nameservers)
+print('WS GlobalVars.dns_cache_enabled:', GlobalVars.dns_cache_enabled)
+print('WS dns.resolver.Cache(GlobalVars.dns_cache_interval):', dns.resolver.Cache(GlobalVars.dns_cache_interval))
 if GlobalVars.dns_nameservers != 'system':
-    dns.resolver.get_default_resolver().nameservers = GlobalVars.config.dns_nameservers.split(',')
+    default_dns_resolver.nameservers = GlobalVars.dns_nameservers.split(',')
 
 if GlobalVars.dns_cache_enabled:
-    dns.resolver.get_default_resolver().cache = dns.resolver.Cache(GlobalVars.dns_cache_interval)
+    default_dns_resolver.cache = dns.resolver.Cache(GlobalVars.dns_cache_interval)
 
-dns.resolver.get_default_resolver().timeout = 2
-dns.resolver.get_default_resolver().lifetime = 5
+default_dns_resolver.timeout = 2
+default_dns_resolver.lifetime = 5
 dns.resolver.override_system_resolver()
 
 
