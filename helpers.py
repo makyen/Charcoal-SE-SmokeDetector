@@ -22,6 +22,7 @@ import requests
 import regex
 from regex.regex import _compile as regex_raw_compile
 import websocket
+import dns.resolver
 
 from globalvars import GlobalVars
 
@@ -589,3 +590,18 @@ def keyword_non_bookend_regex_text(regex_text):
 
 def get_non_bookended_keyword_regex_text_from_entries(entries):
     return keyword_non_bookend_regex_text('|'.join(entries))
+
+
+def initiate_dns():
+    # Initiate DNS
+    #
+    # Based on additional research, at this point in the code *nothing* has done anything from a
+    # DNS or network resolution perspective - not for WebSockets nor for dnspython and the
+    # default resolver in it.  Since this activates and initializes the DNS *long* before
+    # the chat or metasmoke websockets have been initiated, this is a 'safe space' to
+    # begin initialization of the DNS data.
+    if GlobalVars.dns_nameservers != 'system':
+        dns.resolver.get_default_resolver().nameservers = GlobalVars.config.dns_nameservers.split(',')
+
+    if GlobalVars.dns_cache_enabled:
+        dns.resolver.get_default_resolver().cache = dns.resolver.Cache(GlobalVars.dns_cache_interval)

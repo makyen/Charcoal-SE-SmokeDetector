@@ -33,11 +33,10 @@ from editwatcher import EditWatcher
 import json
 import time
 import requests
-import dns.resolver
 # noinspection PyPackageRequirements
 from tld.utils import update_tld_names, TldIOError
 from helpers import (exit_mode, log, Helpers, log_exception, add_to_global_bodyfetcher_queue_in_new_thread,
-                     tell_debug_rooms_recovered_websocket)
+                     tell_debug_rooms_recovered_websocket, initiate_dns)
 from flovis import Flovis
 from tasks import Tasks
 
@@ -106,18 +105,7 @@ if not GlobalVars.metasmoke_key:
 if not GlobalVars.metasmoke_ws_host:
     log('info', "No metasmoke websocket host found, which is okay if you're anti-websocket")
 
-# Initiate DNS
-#
-# Based on additional research, at this point in the code *nothing* has done anything from a
-# DNS or network resolution perspective - not for WebSockets nor for dnspython and the
-# default resolver in it.  Since this activates and initializes the DNS *long* before
-# the chat or metasmoke websockets have been initiated, this is a 'safe space' to
-# begin initialization of the DNS data.
-if GlobalVars.dns_nameservers != 'system':
-    dns.resolver.get_default_resolver().nameservers = GlobalVars.config.dns_nameservers.split(',')
-
-if GlobalVars.dns_cache_enabled:
-    dns.resolver.get_default_resolver().cache = dns.resolver.Cache(GlobalVars.dns_cache_interval)
+initiate_dns()
 
 
 # noinspection PyProtectedMember
