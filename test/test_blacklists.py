@@ -9,11 +9,13 @@ from globalvars import GlobalVars
 import pytest
 
 from blacklists import Blacklist, YAMLParserCIDR, YAMLParserASN, YAMLParserNS, load_blacklists
-from helpers import files_changed, blacklist_integrity_check, not_regex_search_ascii_and_unicode
+from helpers import files_changed, blacklist_integrity_check, not_regex_search_ascii_and_unicode, initiate_dns
 from phone_numbers import NUMBER_REGEX, NUMBER_REGEX_START, NUMBER_REGEX_END, NUMBER_REGEX_MINIMUM_DIGITS, NUMBER_REGEX_MAXIMUM_DIGITS, \
     process_numlist, get_maybe_north_american_not_in_normalized_but_in_all, is_digit_count_in_number_regex_range, matches_number_regex, \
     matches_number_regex_start, matches_number_regex_end
 from findspam import FindSpam
+
+initiate_dns()
 
 
 def test_number_lists():

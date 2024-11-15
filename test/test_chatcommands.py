@@ -19,9 +19,12 @@ if GlobalVars.on_windows:
     from _Git_Windows import git
 else:
     from sh.contrib import git
+from helpers import initiate_dns
 
 from fake import Fake
 from unittest.mock import patch
+
+initiate_dns()
 
 
 def rewrap_for_paramiterized_test_bisect():

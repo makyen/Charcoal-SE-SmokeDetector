@@ -2,7 +2,9 @@
 from findspam import FindSpam, ip_for_url_host, get_ns_ips
 import pytest
 from classes import Post
-from helpers import log
+from helpers import log, initiate_dns
+
+initiate_dns()
 
 
 # noinspection PyMissingTypeHints

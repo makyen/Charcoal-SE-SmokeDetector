@@ -11,8 +11,10 @@ from unittest import TestCase
 from unittest.mock import MagicMock, call, ANY, DEFAULT
 import chatcommunicate
 from globalvars import GlobalVars
+from helpers import initiate_dns
 
 
+initiate_dns()
 load_blacklists()
 test_data_inputs = []
 with open("test/data_test_spamhandling.txt", "r", encoding="utf-8") as f:
