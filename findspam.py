@@ -1392,7 +1392,7 @@ def dns_query(label, qtype):
         starttime = datetime.utcnow()
         # Extend lifetime if we are running a test
         extra_params = dict()
-        if "pytest" in sys.modules:
+        if GlobalVars.is_pytest:
             extra_params['lifetime'] = 20
         answer = dns.resolver.resolve(label, qtype, search=True, **extra_params)
     except dns.exception.DNSException as exc:
@@ -1422,7 +1422,7 @@ def asn_query(ip):
 
 
 def ns_for_url_domain(s, site, nslist):
-    if "pytest" in sys.modules:
+    if GlobalVars.is_pytest:
         for nsentry in nslist:
             if isinstance(nsentry, list):
                 for ns in nsentry:

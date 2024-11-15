@@ -306,7 +306,7 @@ class YAMLParserNS(YAMLParserCIDR):
                 return False
             # Extend lifetime if we are running a test
             extra_params = dict()
-            if "pytest" in sys.modules:
+            if GlobalVars.is_pytest:
                 extra_params['lifetime'] = 15
             try:
                 try:
@@ -333,7 +333,7 @@ class YAMLParserNS(YAMLParserCIDR):
                               ' {} in {}'.format(color(ns, 'white', attrs=['bold']), self._filename)),
                     no_exception=True)
                 log('error', '{}'.format(color('-' * 41 + '^' * len(ns), 'red', attrs=['bold'])), no_exception=True)
-                if "pytest" in sys.modules:
+                if GlobalVars.is_pytest:
                     item['error'] = excep
                     return item
                 else:

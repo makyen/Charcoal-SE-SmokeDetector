@@ -324,7 +324,9 @@ class GlobalVars:
 
     config_parser = ConfigParser(interpolation=None)
 
-    if os.path.isfile('config') and "pytest" not in sys.modules:
+    is_pytest = True if "pytest" in sys.modules else False
+    # if os.path.isfile('config') and "pytest" not in sys.modules:
+    if os.path.isfile('config') and not is_pytest:
         config_parser.read('config')
     else:
         config_parser.read('config.ci')

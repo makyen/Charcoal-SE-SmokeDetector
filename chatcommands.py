@@ -1697,8 +1697,7 @@ def bisect(msg, s):
         pass
     matches = []
     timeouts = []
-    is_pytest = "pytest" in sys.modules
-    timeout = 1 if is_pytest else None
+    timeout = 1 if GlobalVars.is_pytest else None
     # A timeout of 1 second is about 50 times longer than we're currently seeing. It should give
     # us a good indication of when we have a regex that is not behaving as well as we'd like.
     # If there is a regex which needs more than this, feel free to adjust the timeout. However,
@@ -1721,7 +1720,7 @@ def bisect(msg, s):
         indented_timeout_list_text = '  {}'.format('\n  '.join(formatted_timeouts))
         timeout_error_message = 'bisect excessive regex processing time:\n{}'.format(indented_timeout_list_text)
         log('warning', timeout_error_message)
-        if is_pytest:
+        if GlobalVars.is_pytest:
             # Cause the CI testing to fail when there were timeouts.
             raise TimeoutError(timeout_error_message)
         timeout_error_message = '\n' + timeout_error_message
