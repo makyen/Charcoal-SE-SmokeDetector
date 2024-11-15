@@ -601,7 +601,7 @@ def initiate_dns():
     # the chat or metasmoke websockets have been initiated, this is a 'safe space' to
     # begin initialization of the DNS data.
     if GlobalVars.dns_nameservers != 'system':
-        dns.resolver.get_default_resolver().nameservers = GlobalVars.config.dns_nameservers.split(',')
+        dns.resolver.get_default_resolver().nameservers = GlobalVars.dns_nameservers.split(',')
 
     if GlobalVars.dns_cache_enabled:
         dns.resolver.get_default_resolver().cache = dns.resolver.Cache(GlobalVars.dns_cache_interval)
