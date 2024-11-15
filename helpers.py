@@ -592,7 +592,7 @@ def get_non_bookended_keyword_regex_text_from_entries(entries):
     return keyword_non_bookend_regex_text('|'.join(entries))
 
 
-def initiate_dns():
+def initiate_dns(override_system_resolver=False):
     # Initiate DNS
     #
     # Based on additional research, at this point in the code *nothing* has done anything from a
@@ -600,8 +600,12 @@ def initiate_dns():
     # default resolver in it.  Since this activates and initializes the DNS *long* before
     # the chat or metasmoke websockets have been initiated, this is a 'safe space' to
     # begin initialization of the DNS data.
+    default_resolver = dns.resolver.get_default_resolver()
     if GlobalVars.dns_nameservers != 'system':
-        dns.resolver.get_default_resolver().nameservers = GlobalVars.dns_nameservers.split(',')
+        default_resolver.nameservers = GlobalVars.dns_nameservers.split(',')
 
     if GlobalVars.dns_cache_enabled:
-        dns.resolver.get_default_resolver().cache = dns.resolver.Cache(GlobalVars.dns_cache_interval)
+        default_resolver.cache = dns.resolver.Cache(GlobalVars.dns_cache_interval)
+
+    if override_system_resolver:
+        dns.resolver.override_system_resolver()
