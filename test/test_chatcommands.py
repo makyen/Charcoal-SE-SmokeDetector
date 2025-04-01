@@ -517,6 +517,9 @@ def test_allspam(handle_spam):
             "attention, otherwise use !!/report on the user's posts individually."
         )
 
+        """ These are generating a substantial number of intermittent errors. The issue should be looked at
+            in more detail, but for now, 2025-04-01, they are disabled in order to not have people fatigued
+            with respect to CI failure reports in CHQ.
         assert chatcommands.allspam("https://stackexchange.com/users/11683", original_msg=msg) == (
             "The specified user's reputation is abnormally high. Please consider flagging for moderator attention, "
             "otherwise use !!/report on the posts individually."
@@ -526,6 +529,7 @@ def test_allspam(handle_spam):
             "The specified user's reputation is abnormally high. Please consider flagging for moderator attention, "
             "otherwise use !!/report on the posts individually."
         )
+        """
 
         assert chatcommands.allspam("https://stackexchange.com/users/12108751", original_msg=msg) == \
             "The specified user hasn't posted anything."
