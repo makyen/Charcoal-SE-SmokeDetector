@@ -80391,3 +80391,4 @@
 1773675031	Dan Getz	B0GRGL1RC2(?#amazon)
 1773677841	VLAZ	trendsinsideview\.com
 1773677889	VLAZ	crossrefchristianity\.com
+1773680343	Jeff Schaller	cpmrevenue\.website
