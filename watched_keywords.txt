@@ -80394,3 +80394,4 @@
 1773680343	Jeff Schaller	cpmrevenue\.website
 1773683413	Jeff Schaller	bearingbasement\.com
 1773683576	Dan Getz	yositeup\.com
+1773692292	Dan Getz	microespanatools\.com
