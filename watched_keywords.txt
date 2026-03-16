@@ -80383,3 +80383,4 @@
 1773659347	Dan Getz	genixmeds\.com
 1773661886	VLAZ	testdino\.com
 1773665090	Jeff Schaller	sanatanayurveda\.com
+1773665146	Jeff Schaller	mirojewelers\.com
