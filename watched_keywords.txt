@@ -80406,3 +80406,4 @@
 1773759418	Dan Getz	phclearance\.com
 1773768155	Jeff Schaller	roofingbyvalor\.com
 1773784876	Jeff Schaller	pkrgaming\.com\.pk
+1773785849	Dan Getz	verilexdata\.com
