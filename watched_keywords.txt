@@ -80397,3 +80397,4 @@
 1773692292	Dan Getz	microespanatools\.com
 1773703196	VLAZ	info[\W_]*+vaulttraces[\W_]*+c[\W_]*+o[\W_]*+m
 1773716906	Ryan M	Foodsure
+1773736208	Robert Longson	sherrikingrealtor\.com
