@@ -80307,7 +80307,6 @@
 1773189474	Dan Getz	woodsandwax\.com
 1773205050	VLAZ	purelyponds\.com
 1773205511	VLAZ	ouda-developments\.com
-1773207165	VLAZ	privateinvestigation\.my
 1773217192	VLAZ	vacationotrips\.com
 1773217383	VLAZ	kreditbee
 1773217390	VLAZ	sugsthwaz(?# referral code)
