@@ -80446,3 +80446,4 @@
 1773984574	VLAZ	dealsexport\.com
 1773984584	VLAZ	flyroving\.com
 1773986770	VLAZ	gameguidewebsite\.com
+1773992267	VLAZ	mangoi\.in
