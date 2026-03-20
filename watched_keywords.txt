@@ -80449,3 +80449,4 @@
 1773992267	VLAZ	mangoi\.in
 1773993822	VLAZ	megatechbot\.com
 1774004290	VLAZ	selinvids\.site
+1774004998	Dan Getz	bafflesol\.com
