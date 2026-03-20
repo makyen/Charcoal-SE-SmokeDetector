@@ -80443,3 +80443,4 @@
 1773959663	Dan Getz	abusmm\.com
 1773959724	Dan Getz	abusmm(?!\.com)(?:s|team)?
 1773984515	VLAZ	teshilong\.com
+1773984574	VLAZ	dealsexport\.com
