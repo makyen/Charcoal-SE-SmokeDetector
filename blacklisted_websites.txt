@@ -6296,3 +6296,4 @@ flyairlinespolicy\.com
 \b(?<![^\W_]-)market\.us\b(?![.-][^\W_])
 conferencelists\.org
 noversecloud\.me
+jsonwebtools\.com
