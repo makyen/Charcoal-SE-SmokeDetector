@@ -80456,3 +80456,4 @@
 1774061357	Jeff Schaller	mediardx\.com
 1774093384	Jeff Schaller	hashcodex\.com
 1774093407	Jeff Schaller	nhatcausport\.com
+1774102815	Dan Getz	mdpdf\.com
