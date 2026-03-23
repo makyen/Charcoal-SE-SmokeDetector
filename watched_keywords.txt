@@ -80479,3 +80479,4 @@
 1774269409	VLAZ	liga[\W_]*+mx
 1774278025	VLAZ	adeptiv\.ai
 1774278036	VLAZ	adeptiv[\W_]*+ai(?!(?<=adeptiv\.ai))
+1774282235	VLAZ	bytutor\.com
