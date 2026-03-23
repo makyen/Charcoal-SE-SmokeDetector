@@ -80473,3 +80473,4 @@
 1774235532	Dan Getz	coordconv\.com
 1774237315	Dan Getz	businesspress\.io
 1774249843	VLAZ	viewzen[\W_]*+labs
+1774268374	VLAZ	voltatransformers\.com
