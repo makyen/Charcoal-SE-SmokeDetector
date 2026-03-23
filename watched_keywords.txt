@@ -80481,3 +80481,4 @@
 1774278036	VLAZ	adeptiv[\W_]*+ai(?!(?<=adeptiv\.ai))
 1774282235	VLAZ	bytutor\.com
 1774282942	Dan Getz	amnguspro\.com
+1774290570	Dan Getz	avrupabet\.app
