@@ -80478,3 +80478,4 @@
 1774269400	Machavity	ligafanaticos\.com
 1774269409	VLAZ	liga[\W_]*+mx
 1774278025	VLAZ	adeptiv\.ai
+1774278036	VLAZ	adeptiv[\W_]*+ai(?!(?<=adeptiv\.ai))
