@@ -80476,3 +80476,4 @@
 1774268374	VLAZ	voltatransformers\.com
 1774268466	VLAZ	resizo\.in
 1774269400	Machavity	ligafanaticos\.com
+1774269409	VLAZ	liga[\W_]*+mx
