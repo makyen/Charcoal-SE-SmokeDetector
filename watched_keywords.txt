@@ -80472,3 +80472,4 @@
 1774225874	Jeff Schaller	dba-intern\.de
 1774235532	Dan Getz	coordconv\.com
 1774237315	Dan Getz	businesspress\.io
+1774249843	VLAZ	viewzen[\W_]*+labs
