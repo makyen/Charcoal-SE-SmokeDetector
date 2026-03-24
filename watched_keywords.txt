@@ -80493,3 +80493,4 @@
 1774351593	Jeff Schaller	ruhijuise\.in
 1774351732	VLAZ	hookahstuff\.com
 1774354852	VLAZ	e[\W_]*+khool(?!\.com(?<=ekhool\.com))
+1774354872	VLAZ	ekhool\.com
