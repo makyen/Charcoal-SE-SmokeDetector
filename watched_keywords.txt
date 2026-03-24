@@ -80495,3 +80495,4 @@
 1774354852	VLAZ	e[\W_]*+khool(?!\.com(?<=ekhool\.com))
 1774354872	VLAZ	ekhool\.com
 1774359593	Jeff Schaller	Yubetub\.my\.canva\.site
+1774359965	VLAZ	RXJ483(?# promo code)
