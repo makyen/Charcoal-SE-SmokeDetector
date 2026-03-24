@@ -15638,7 +15638,6 @@
 1579673478	Shree	arscolors\.com
 1579673511	Shree	ramhsahome\.com
 1579673978	Shree	go-roku-activate\.com
-1579675333	Makyen	e[\W_]*+khool
 1579675368	Makyen	sortsoln\.com
 1579675429	Makyen	slimymedkapseln(?#facebook.com)
 1579678876	Makyen	(?-i:Y_SyQzjqWVI)(?#youtu.be)
