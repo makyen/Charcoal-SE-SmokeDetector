@@ -80504,3 +80504,4 @@
 1774423873	VLAZ	fully-fundedscholarships\.com
 1774430873	VLAZ	banglaguide24\.com
 1774437835	VLAZ	pcsglobalgroup\.com
+1774438535	Jeff Schaller	destinymatrics\.com
