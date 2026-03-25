@@ -80501,3 +80501,4 @@
 1774420472	VLAZ	bhasmaartibooking\.com
 1774423701	VLAZ	singerinstruments\.com
 1774423867	VLAZ	opportunitiesforyouth\.org
+1774423873	VLAZ	fully-fundedscholarships\.com
