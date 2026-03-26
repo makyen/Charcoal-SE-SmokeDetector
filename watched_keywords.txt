@@ -80524,3 +80524,4 @@
 1774511052	VLAZ	nhongxich\.com
 1774518037	VLAZ	yoniavizohar701@gmail\.com
 1774524482	Jeff Schaller	screwpumpmanufacturers\.com
+1774532942	VLAZ	attorney[\W_]*+rankings(?:[\W_]*+com)?
