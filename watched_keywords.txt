@@ -80527,3 +80527,4 @@
 1774532942	VLAZ	attorney[\W_]*+rankings(?:[\W_]*+com)?
 1774545843	Jeff Schaller	hollandadvocatenkantoor\.nl
 1774552009	Jeff Schaller	cliqforhome\.com
+1774558941	Dan Getz	thetrafficrider\.com
