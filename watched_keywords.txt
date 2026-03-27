@@ -80538,3 +80538,4 @@
 1774606318	VLAZ	imgful\.io
 1774606406	VLAZ	nanaimg\.io
 1774606626	VLAZ	nana[\W_]*+banana
+1774614618	VLAZ	brandsetudigital\.com
