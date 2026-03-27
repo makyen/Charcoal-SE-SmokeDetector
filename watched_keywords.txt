@@ -80537,3 +80537,4 @@
 1774600639	VLAZ	showcraftuae\.com
 1774606318	VLAZ	imgful\.io
 1774606406	VLAZ	nanaimg\.io
+1774606626	VLAZ	nana[\W_]*+banana
