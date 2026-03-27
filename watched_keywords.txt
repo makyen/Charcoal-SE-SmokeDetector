@@ -80539,3 +80539,4 @@
 1774606406	VLAZ	nanaimg\.io
 1774606626	VLAZ	nana[\W_]*+banana
 1774614618	VLAZ	brandsetudigital\.com
+1774614697	VLAZ	brandsetu[\W_]*+digital(?!\.com(?<=brandsetudigital\.com))
