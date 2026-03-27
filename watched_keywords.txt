@@ -80541,3 +80541,4 @@
 1774614618	VLAZ	brandsetudigital\.com
 1774614697	VLAZ	brandsetu[\W_]*+digital(?!\.com(?<=brandsetudigital\.com))
 1774614991	VLAZ	nookyup\.com
+1774615865	VLAZ	airlinesticketbooking\.com
