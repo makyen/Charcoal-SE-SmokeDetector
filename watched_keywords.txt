@@ -80535,3 +80535,4 @@
 1774600304	VLAZ	digitalmonk\.biz
 1774600324	VLAZ	srichakra[\W_]*+multispeciality[\W_]*+hospital
 1774600639	VLAZ	showcraftuae\.com
+1774606318	VLAZ	imgful\.io
