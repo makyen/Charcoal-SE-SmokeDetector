@@ -80551,3 +80551,4 @@
 1774650468	VLAZ	cookierunkingdomcodes\.com
 1774678812	VLAZ	calculatorwallah
 1774679424	VLAZ	247digitize\.com
+1774679464	VLAZ	areaofirregularshapescalc\.com
