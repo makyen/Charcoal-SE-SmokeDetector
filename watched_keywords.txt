@@ -80566,3 +80566,4 @@
 1774796142	VLAZ	captain-droid\.com
 1774804553	VLAZ	rjptoto\.org
 1774804559	VLAZ	rjptoto(?!\.org)
+1774805489	VLAZ	drpardhasaradhisivakoti\.com
