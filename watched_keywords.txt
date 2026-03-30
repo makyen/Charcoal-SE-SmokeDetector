@@ -80571,3 +80571,4 @@
 1774846705	VLAZ	topsoilcalconline\.com
 1774853828	VLAZ	vikramenthospital\.com
 1774854706	VLAZ	nxtevent\.com\.au
+1774854931	VLAZ	gmedrills\.com
