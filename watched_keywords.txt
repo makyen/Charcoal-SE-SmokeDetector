@@ -80572,3 +80572,4 @@
 1774853828	VLAZ	vikramenthospital\.com
 1774854706	VLAZ	nxtevent\.com\.au
 1774854931	VLAZ	gmedrills\.com
+1774857242	VLAZ	towinlens\.com
