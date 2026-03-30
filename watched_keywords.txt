@@ -80586,3 +80586,4 @@
 1774876496	VLAZ	one2\.agency
 1774878160	Jeff Schaller	carryonsizeguide\.com
 1774883312	VLAZ	towingserviceqatar\.com
+1774893263	Thomas Ward	transit-lens\.com(?#Observed from a single user posting this to advertise their product on gis.SE, possible 'spammer' only made to advertise their service)
