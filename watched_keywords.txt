@@ -74935,7 +74935,6 @@
 1752143088	VLAZ	technource\.com
 1752143100	Vickel	coloradofoodreviews\.com
 1752148201	lyxal	notarisedtranslations\.co\.uk
-1752148625	VLAZ	michaeldev
 1752150106	Vickel	summitersclub\.com
 1752153177	lyxal	makeyourcoin\.com
 1752154538	VLAZ	bigbudone\.com
