@@ -80594,3 +80594,4 @@
 1774944147	VLAZ	brandnestwebsolutions\.com
 1774947329	VLAZ	myonlinemedshop\.com
 1774949914	VLAZ	dexstablecoin\.github\.io
+1774954836	VLAZ	amalmarketer\.com
