@@ -80596,3 +80596,4 @@
 1774949914	VLAZ	dexstablecoin\.github\.io
 1774954836	VLAZ	amalmarketer\.com
 1774958121	VLAZ	utilizor\.com
+1774958926	VLAZ	(?-i:3gN2J)(?# unlk.link)
