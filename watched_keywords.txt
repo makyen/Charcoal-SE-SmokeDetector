@@ -80593,3 +80593,4 @@
 1774941247	VLAZ	rumanafamy\.com
 1774944147	VLAZ	brandnestwebsolutions\.com
 1774947329	VLAZ	myonlinemedshop\.com
+1774949914	VLAZ	dexstablecoin\.github\.io
