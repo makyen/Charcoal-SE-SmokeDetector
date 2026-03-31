@@ -80589,3 +80589,4 @@
 1774905605	VLAZ	dim\.maxym\.mychess
 1774935144	VLAZ	y2mateta\.com
 1774939121	VLAZ	compumatrixtechnologies\.com
+1774939585	VLAZ	kishanpipe\.com\.np
