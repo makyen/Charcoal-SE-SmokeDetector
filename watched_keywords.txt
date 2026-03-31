@@ -80604,3 +80604,4 @@
 1774966611	VLAZ	unlk\.link
 1774966641	VLAZ	linkunlocker\.com
 1774970234	Dan Getz	blastslot
+1774970506	Dan Getz	degenroll
