@@ -80587,3 +80587,4 @@
 1774883312	VLAZ	towingserviceqatar\.com
 1774893263	Thomas Ward	transit-lens\.com(?#Observed from a single user posting this to advertise their product on gis.SE, possible 'spammer' only made to advertise their service)
 1774905605	VLAZ	dim\.maxym\.mychess
+1774935144	VLAZ	y2mateta\.com
