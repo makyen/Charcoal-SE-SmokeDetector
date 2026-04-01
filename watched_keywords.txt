@@ -80613,3 +80613,4 @@
 1775024209	VLAZ	powerliftgroup\.uk
 1775024701	VLAZ	edanbrook(?!\.com)
 1775026502	VLAZ	swiftdial\.in
+1775027978	VLAZ	f2down\.com
