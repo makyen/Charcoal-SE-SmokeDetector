@@ -80612,3 +80612,4 @@
 1775007981	Dan Getz	consultaperuapi\.com
 1775024209	VLAZ	powerliftgroup\.uk
 1775024701	VLAZ	edanbrook(?!\.com)
+1775026502	VLAZ	swiftdial\.in
