@@ -80627,4 +80627,3 @@
 1775072133	Dan Getz	geometrydashes\.com
 1775072653	Jeff Schaller	certlens\.navsatech\.dev
 1775073110	Jeff Schaller	robocraze\.com
-1775077240	Jeff Schaller	mavisjwancyzkfoundation\.com
