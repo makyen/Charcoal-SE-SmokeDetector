@@ -80611,3 +80611,4 @@
 1775007907	Dan Getz	ganjingworld\.com
 1775007981	Dan Getz	consultaperuapi\.com
 1775024209	VLAZ	powerliftgroup\.uk
+1775024701	VLAZ	edanbrook(?!\.com)
