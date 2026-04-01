@@ -80619,3 +80619,4 @@
 1775036483	VLAZ	ivanpr\.com
 1775036505	VLAZ	quraan\.pk
 1775036983	VLAZ	zenllm\.io
+1775040471	VLAZ	cheapfarefreak\.com
