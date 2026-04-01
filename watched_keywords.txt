@@ -80616,3 +80616,4 @@
 1775027978	VLAZ	f2down\.com
 1775029133	VLAZ	australianrenderingcompany\.com\.au
 1775036477	VLAZ	(?-i:X82Puf)(?#bit.ly)
+1775036483	VLAZ	ivanpr\.com
