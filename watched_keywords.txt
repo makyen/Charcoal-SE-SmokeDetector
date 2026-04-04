@@ -80652,3 +80652,4 @@
 1775253693	VLAZ	markeltree\.com
 1775284692	VLAZ	bleckscreen\.com
 1775284735	VLAZ	6stream\.net
+1775307237	VLAZ	jairos-adventure\.com
