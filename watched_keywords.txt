@@ -80657,3 +80657,4 @@
 1775324055	Dan Getz	mihajlostanojevic\.com
 1775325925	Dan Getz	zkprintsolutions\.com
 1775325976	Dan Getz	gamepass\.tv
+1775333585	Dan Getz	(?-i:Qg7cAxRU7PA)(?#youtube)
