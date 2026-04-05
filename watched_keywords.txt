@@ -80666,3 +80666,4 @@
 1775399767	Dan Getz	mattmediagroup\.com
 1775402541	Jeff Schaller	thetechnicalstuff\.com
 1775408464	Dan Getz	stylishnamet\.com
+1775410169	Dan Getz	ishoppist\.com
