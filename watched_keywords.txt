@@ -80662,3 +80662,4 @@
 1775368187	VLAZ	openportcheckers\.com
 1775386987	VLAZ	iivs\.com
 1775399223	Dan Getz	rutificadorr\.cl
+1775399232	Dan Getz	drivio\.us
