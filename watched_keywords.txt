@@ -80669,3 +80669,4 @@
 1775410169	Dan Getz	ishoppist\.com
 1775410298	Dan Getz	inceptiallogic\.com
 1775412335	Dan Getz	digitalmagicwand\.com
+1775418493	Jeff Schaller	analyticsdrive\.tech
