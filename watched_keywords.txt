@@ -80667,3 +80667,4 @@
 1775402541	Jeff Schaller	thetechnicalstuff\.com
 1775408464	Dan Getz	stylishnamet\.com
 1775410169	Dan Getz	ishoppist\.com
+1775410298	Dan Getz	inceptiallogic\.com
