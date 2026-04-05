@@ -80672,3 +80672,4 @@
 1775418493	Jeff Schaller	analyticsdrive\.tech
 1775422820	Dan Getz	geeklando\.com\.br
 1775422829	Dan Getz	nerdsrant\.com
+1775422944	Dan Getz	animeac\.com\.br
