@@ -80680,3 +80680,4 @@
 1775459343	VLAZ	thejacketspot\.com
 1775461705	VLAZ	examlover\.com
 1775462808	VLAZ	planetradiators\.co\.uk
+1775470363	VLAZ	arihantjain\.cv
