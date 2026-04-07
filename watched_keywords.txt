@@ -80691,4 +80691,3 @@
 1775484858	Jeff Schaller	sipraw\.com
 1775508250	Jeff Schaller	Tanya[\W_]*+Debo
 1775539742	VLAZ	emcqs\.org
-1775542448	VLAZ	(?-i:%20https:)(?#Domains)
