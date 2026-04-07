@@ -80692,3 +80692,4 @@
 1775508250	Jeff Schaller	Tanya[\W_]*+Debo
 1775539742	VLAZ	emcqs\.org
 1775543405	VLAZ	(?-i:^The Marketing Desk$)
+1775544610	VLAZ	sknlex\.com
