@@ -80713,3 +80713,4 @@
 1775652065	Dan Getz	jansmith\.com
 1775656680	Dan Getz	webtechnality\.com
 1775656853	Dan Getz	thoughtlab\.cloud
+1775656859	Dan Getz	thoughtlab\.work
