@@ -80732,3 +80732,4 @@
 1775731974	Jeff Schaller	vert-age\.com
 1775732120	Jeff Schaller	rupa\.digiway\.co\.in
 1775735210	Jeff Schaller	mssn\.online
+1775737221	Dan Getz	ksarestaurantsz\.com
