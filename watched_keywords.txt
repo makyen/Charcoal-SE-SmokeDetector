@@ -80730,3 +80730,4 @@
 1775722261	VLAZ	kavachqr\.live
 1775731886	Jeff Schaller	elaax\.de
 1775731974	Jeff Schaller	vert-age\.com
+1775732120	Jeff Schaller	rupa\.digiway\.co\.in
