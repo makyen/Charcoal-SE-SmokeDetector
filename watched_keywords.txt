@@ -80724,3 +80724,4 @@
 1775683314	Dan Getz	tracklist\.live
 1775702652	Dan Getz	nexdigm\.com
 1775722013	VLAZ	missionvalleycapital\.com
+1775722096	VLAZ	faceshapedetector\.app
