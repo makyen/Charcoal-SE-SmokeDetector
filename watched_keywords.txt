@@ -80727,3 +80727,4 @@
 1775722096	VLAZ	faceshapedetector\.app
 1775722194	VLAZ	brooklynbestelectrician\.com
 1775722224	VLAZ	calculadoraaliciaonline\.com
+1775722261	VLAZ	kavachqr\.live
