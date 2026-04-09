@@ -80733,3 +80733,4 @@
 1775732120	Jeff Schaller	rupa\.digiway\.co\.in
 1775735210	Jeff Schaller	mssn\.online
 1775737221	Dan Getz	ksarestaurantsz\.com
+1775744824	VLAZ	satespace\.com
