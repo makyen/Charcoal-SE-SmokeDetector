@@ -80740,3 +80740,4 @@
 1775804325	VLAZ	operonstrategist\.com
 1775815663	VLAZ	newbuyermortgage\.com
 1775819185	Jeff Schaller	yan3d\.org
+1775819270	Jeff Schaller	doubleslitexperiment\.app
