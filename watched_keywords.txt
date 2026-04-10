@@ -80749,3 +80749,4 @@
 1775834144	VLAZ	Xhrlffj(?:s|es)?
 1775834204	VLAZ	(?-i:^Selfiiie 5934$)
 1775835005	VLAZ	oliverjrdelapenaofficialph(?# YouTube channel)
+1775846151	Jeff Schaller	thealloymarket\.com
