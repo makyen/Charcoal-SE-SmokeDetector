@@ -80747,3 +80747,4 @@
 1775827131	VLAZ	pynfinity\.com
 1775829687	Jeff Schaller	finreads\.com
 1775834144	VLAZ	Xhrlffj(?:s|es)?
+1775834204	VLAZ	(?-i:^Selfiiie 5934$)
