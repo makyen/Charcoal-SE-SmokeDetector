@@ -80748,3 +80748,4 @@
 1775829687	Jeff Schaller	finreads\.com
 1775834144	VLAZ	Xhrlffj(?:s|es)?
 1775834204	VLAZ	(?-i:^Selfiiie 5934$)
+1775835005	VLAZ	oliverjrdelapenaofficialph(?# YouTube channel)
