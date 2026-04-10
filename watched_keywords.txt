@@ -80746,4 +80746,3 @@
 1775823487	Dan Getz	pdf365\.cloud
 1775827131	VLAZ	pynfinity\.com
 1775829687	Jeff Schaller	finreads\.com
-1775831876	Jeff Schaller	Xhrlffj
