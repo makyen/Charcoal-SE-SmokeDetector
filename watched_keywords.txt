@@ -80762,3 +80762,4 @@
 1775900345	VLAZ	rototillerguy(?!\.com)
 1775921091	Jeff Schaller	serubetok\.com
 1775922775	Dan Getz	astutebetaserverhq\.com
+1775925526	Dan Getz	serp\.ly
