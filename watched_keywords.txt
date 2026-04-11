@@ -80755,3 +80755,4 @@
 1775863405	Jeff Schaller	macfullversion\.com
 1775871489	Jeff Schaller	hubbolt20(?:@gmail\.com)?
 1775878663	Dan Getz	hubbboltsecurity\.com
+1775896582	VLAZ	damankhelo\.com
