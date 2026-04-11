@@ -80760,3 +80760,4 @@
 1775899881	VLAZ	rvmglobal\.in
 1775900335	VLAZ	rototillerguy\.com
 1775900345	VLAZ	rototillerguy(?!\.com)
+1775921091	Jeff Schaller	serubetok\.com
