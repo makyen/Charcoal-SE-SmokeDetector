@@ -80764,3 +80764,4 @@
 1775922775	Dan Getz	astutebetaserverhq\.com
 1775925526	Dan Getz	serp\.ly
 1775925750	Dan Getz	github\.com/serpapps
+1775925781	Dan Getz	github\.com/devinschumacher
