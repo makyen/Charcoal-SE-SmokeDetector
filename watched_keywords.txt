@@ -80771,3 +80771,4 @@
 1775996215	Dan Getz	smsgatewayhub(?!\.com)
 1775998244	Jeff Schaller	logbase2calculator\.com
 1776002526	Dan Getz	bonus-ah\.nl
+1776016057	Dan Getz	sites\.google\.com/view/solargamerz
