@@ -80772,3 +80772,4 @@
 1775998244	Jeff Schaller	logbase2calculator\.com
 1776002526	Dan Getz	bonus-ah\.nl
 1776016057	Dan Getz	sites\.google\.com/view/solargamerz
+1776017982	Jeff Schaller	fire-kirin\.us
