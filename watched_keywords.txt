@@ -80768,3 +80768,4 @@
 1775937037	Dan Getz	escaperoadcity2\.com
 1775938284	Dan Getz	ragdollhit-game\.io
 1775996076	Dan Getz	shsat-scorecalculator\.com
+1775996215	Dan Getz	smsgatewayhub(?!\.com)
