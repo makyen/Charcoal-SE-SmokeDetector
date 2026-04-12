@@ -80769,3 +80769,4 @@
 1775938284	Dan Getz	ragdollhit-game\.io
 1775996076	Dan Getz	shsat-scorecalculator\.com
 1775996215	Dan Getz	smsgatewayhub(?!\.com)
+1775998244	Jeff Schaller	logbase2calculator\.com
