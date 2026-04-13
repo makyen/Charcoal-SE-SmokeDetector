@@ -80798,3 +80798,4 @@
 1776099800	VLAZ	(?-i:^Sincere Science Team$)
 1776100692	Jeff Schaller	entrepreneuronemedia\.com
 1776101197	Jeff Schaller	backusestimating\.com
+1776105464	Jeff Schaller	studio98\.ai
