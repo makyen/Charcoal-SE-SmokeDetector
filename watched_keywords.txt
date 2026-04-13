@@ -80796,3 +80796,4 @@
 1776094723	VLAZ	nekopoidl\.com
 1776094917	VLAZ	Mobolutions
 1776099800	VLAZ	(?-i:^Sincere Science Team$)
+1776100692	Jeff Schaller	entrepreneuronemedia\.com
