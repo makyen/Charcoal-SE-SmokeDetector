@@ -80793,3 +80793,4 @@
 1776093122	VLAZ	blockreq
 1776093850	Jeff Schaller	arcignite\.com
 1776094341	VLAZ	(?-i:^André Guzzon$)
+1776094723	VLAZ	nekopoidl\.com
