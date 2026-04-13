@@ -5484,7 +5484,9 @@ items:
   disable: true
   ns: luutruso.vn.
 - ns: luutruso.net.
-- ns: designkug.com.
+- comment: NoAnswer 2026-04-13
+  disable: true
+  ns: designkug.com.
 - ns: byet.org.
 - comment: NXDOMAIN 2024-12-06
   disable: true
